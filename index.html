@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antygravity Info Panel</title>
+    <title>Panel Antygravity</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
     
     <style>
-        /* --- STYLE --- */
+        /* --- GŁÓWNE ZMIENNE --- */
         :root {
             --theme-title-color: #a8dadc;
             --theme-number-color: #f1faee;
@@ -27,89 +27,17 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1); background-color: #fff;
             border-radius: 15px; overflow: hidden;
         }
+        
+        /* --- POPRAWKA: USUNIĘTO UKRYWANIE ELEMENTÓW --- */
         .view {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: row;
             transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-            background-color: #fff; opacity: 0; pointer-events: none; z-index: 0;
+            background-color: #fff;
+            /* Usunięto opacity: 0, aby treść była widoczna nawet przy błędzie JS */
+            opacity: 1; 
+            z-index: 0;
         }
-        .view.active { opacity: 1; pointer-events: auto; z-index: 10; transform: translateY(0); }
-        .view.inactive { opacity: 0; z-index: 0; transform: translateY(20px); }
         
-        /* Panel Layout */
-        .panel { flex: 1; display: flex; flex-direction: column; padding: 10px; box-sizing: border-box; align-items: center; }
-        #left-panel { background-color: #f9f9f9; border-right: 1px solid #eee; padding-top: 25px; }
-        #right-panel { background-color: #ffffff; padding-top: 25px; }
-        .bottom-spacer { height: 50px; width: 100%; }
-
-        /* Clock Styles */
-        #clock-container { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; flex-grow: 1; text-align: center; }
-        #dayofweek { font-size: 0.9em; font-weight: 400; color: #616161; text-transform: uppercase; margin-bottom: 2px; }
-        #current-date { font-size: 1.1em; color: #424242; margin-bottom: 5px; }
-        #current-time { font-size: 2.5em; font-weight: 300; color: #212121; }
-
-        /* Lucky Number Styles */
-        #lucky-number-container {
-            width: 90%; height: 100%; position: relative; display: flex; flex-direction: column;
-            align-items: center; border: 8px solid var(--theme-border-color);
-            box-shadow: 0 0 30px rgba(0,0,0,0.5); overflow: hidden; padding: 5px; box-sizing: border-box;
-            background: linear-gradient(135deg, var(--theme-bg-gradient-start) 0%, var(--theme-bg-gradient-end) 100%);
-            color: var(--theme-number-color); flex-grow: 1; border-radius: 15px;
-        }
-        #lucky-number-container .title {
-            font-family: 'Bangers', cursive; font-size: 1.5em; line-height: 1.1; margin: 0 0 10px 0;
-            -webkit-text-stroke: 1.5px black; color: var(--theme-title-color); z-index: 10;
-        }
-        #lucky-content-wrapper { display: flex; flex-direction: row; justify-content: space-around; align-items: center; width: 100%; flex-grow: 1; }
-        #lucky-dice-column { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; width: 120px; animation: pulse 2s infinite ease-in-out; }
-        
-        /* Dice Logic CSS */
-        #lucky-dice-column.one-dice-layout { gap: 0; }
-        #lucky-dice-column.three-dice-layout { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 5px; }
-        #lucky-dice-column.three-dice-layout .dice:nth-child(3) { grid-row: 1 / 3; grid-column: 2 / 3; align-self: center; justify-self: center; }
-
-        #lucky-number-text {
-            font-family: 'Bangers', cursive; font-size: 5em; line-height: 1; margin: 0;
-            -webkit-text-stroke: 2px black; text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
-            color: var(--theme-number-color); z-index: 10; transition: all 0.3s ease-out;
-        }
-        #lucky-number-text.is-seven { transform: scale(1.1); text-shadow: 4px 4px 0px cyan; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
-        
-        /* Stars */
-        #lucky-number-container::before {
-            content: ''; position: absolute; z-index: 1; width: 2px; height: 2px;
-            background: var(--theme-star-color); border-radius: 50%;
-            box-shadow: 80px -20px 2px var(--theme-star-color), -50px 60px 1.5px var(--theme-star-color), 100px 100px 3px var(--theme-star-color);
-            animation: twinkle 3s infinite;
-        }
-        @keyframes twinkle { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-
-        /* Dice Graphics */
-        .dice { width: 55px; height: 55px; background: white; border: 3px solid black; border-radius: 8px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 6px; box-sizing: border-box; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
-        .dot { width: 11px; height: 11px; background: black; border-radius: 50%; align-self: center; justify-self: center; }
-        .dice.value-1 .dot:nth-child(1) { grid-area: 2 / 2; }
-        .dice.value-2 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-2 .dot:nth-child(2) { grid-area: 3 / 3; }
-        .dice.value-3 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-3 .dot:nth-child(2) { grid-area: 2 / 2; } .dice.value-3 .dot:nth-child(3) { grid-area: 3 / 3; }
-        .dice.value-4 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-4 .dot:nth-child(2) { grid-area: 1 / 3; } .dice.value-4 .dot:nth-child(3) { grid-area: 3 / 1; } .dice.value-4 .dot:nth-child(4) { grid-area: 3 / 3; }
-        .dice.value-5 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-5 .dot:nth-child(2) { grid-area: 1 / 3; } .dice.value-5 .dot:nth-child(3) { grid-area: 2 / 2; } .dice.value-5 .dot:nth-child(4) { grid-area: 3 / 1; } .dice.value-5 .dot:nth-child(5) { grid-area: 3 / 3; }
-        .dice.value-6 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-6 .dot:nth-child(2) { grid-area: 1 / 3; } .dice.value-6 .dot:nth-child(3) { grid-area: 2 / 1; } .dice.value-6 .dot:nth-child(4) { grid-area: 2 / 3; } .dice.value-6 .dot:nth-child(5) { grid-area: 3 / 1; } .dice.value-6 .dot:nth-child(6) { grid-area: 3 / 3; }
-
-        /* View B (History) */
-        #view-b { flex-direction: column; justify-content: center; align-items: center; padding: 20px; background: linear-gradient(135deg, #fdfbf7 0%, #fff 100%); }
-        .history-container { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; border: 8px solid var(--theme-border-color); border-radius: 12px; padding: 15px; background: #fff; text-align: center; }
-        .history-title { font-family: 'Bangers', cursive; font-size: 2em; margin: 0 0 10px 0; -webkit-text-stroke: 1px black; }
-        .history-content { font-family: 'Roboto', sans-serif; font-size: 1.1em; color: #444; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; width: 100%; overflow-y: auto; }
-        .history-list { list-style: none; padding: 0; margin: 0; text-align: left; }
-        .history-item { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #eee; display: flex; align-items: baseline; }
-        .history-item:last-child { border: none; }
-        .history-year { font-weight: bold; color: #d63384; font-size: 1.2em; margin-right: 10px; min-width: 50px; }
-        .history-footer { margin-top: 5px; font-size: 0.8em; color: #888; font-style: italic; }
-
-        /* Responsywność */
-        @media (max-width: 600px) {
-            #main-wrapper { width: 95%; height: 500px; flex-direction: column; }
-            .view { flex-direction: column; }
-            #lucky-content-wrapper { flex-direction: column; }
-            #lucky-dice-column { width: 100%; margin-bottom: 10px; }
-            #lucky-number-text { font-size: 3.5em;
+        .view.active { opacity: 1; z-index: 10; transform: translateY(0); }
+        .view.inactive { opacity:
