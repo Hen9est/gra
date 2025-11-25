@@ -298,4 +298,161 @@
         }
 
         // --- KONFIGURACJA SZCZĘŚLIWEGO NUMERU ---
-        const LUCKY_NUMBER_
+        const LUCKY_NUMBER_MAX = 18;
+
+        // 10 "worków", każdy zawiera potasowaną listę numerów 1-18
+        const PRE_DEFINED_BAGS = [
+            [3, 5, 17, 1, 9, 14, 6, 8, 12, 4, 10, 15, 2, 13, 7, 11, 18, 16], // Worek 1
+            [10, 4, 15, 2, 13, 7, 1, 18, 9, 16, 5, 11, 17, 3, 8, 14, 6, 12], // Worek 2
+            [7, 14, 2, 16, 9, 12, 5, 1, 11, 17, 3, 10, 6, 15, 18, 4, 13, 8], // Worek 3
+            [16, 6, 13, 8, 3, 18, 10, 2, 15, 5, 1, 14, 9, 11, 4, 17, 7, 12], // Worek 4
+            [5, 12, 17, 4, 11, 8, 15, 7, 2, 13, 9, 1, 18, 6, 10, 16, 3, 14], // Worek 5
+            [9, 1, 14, 6, 10, 16, 3, 13, 4, 17, 7, 12, 15, 2, 11, 18, 8, 5], // Worek 6
+            [2, 15, 8, 11, 4, 7, 13, 18, 6, 10, 16, 3, 14, 9, 1, 12, 5, 17], // Worek 7
+            [14, 3, 10, 12, 5, 17, 7, 4, 13, 9, 1, 18, 2, 8, 15, 6, 11, 16], // Worek 8
+            [11, 16, 6, 1, 8, 15, 9, 3, 12, 14, 17, 5, 13, 7, 2, 10, 18, 4], // Worek 9
+            [4, 18, 7, 13, 2, 10, 1, 16, 8, 15, 6, 11, 12, 5, 17, 9, 14, 3]  // Worek 10
+        ];
+
+        const START_DATE = new Date('2025-10-25T00:00:00Z');
+        const MS_PER_DAY = 1000 * 60 * 60 * 24;
+        const CYCLE_LENGTH_DAYS = PRE_DEFINED_BAGS.length * PRE_DEFINED_BAGS[0].length; 
+
+        // Motywy
+        const comicThemes = [
+            { titleColor: "#a8dadc", numberColor: "#f1faee", bgGradientStart: "#000020", bgGradientEnd: "#4a0d66", borderColor: "black", starColor: "white" },
+            { titleColor: "#ff007f", numberColor: "#ffff00", bgGradientStart: "#00bfff", bgGradientEnd: "#ff4500", borderColor: "black", starColor: "white" },
+            { titleColor: "#dc143c", numberColor: "#ffffff", bgGradientStart: "#4169e1", bgGradientEnd: "#8a2be2", borderColor: "black", starColor: "#ffff00" }
+        ];
+
+        function updateLuckyNumberAndTheme() {
+            try {
+                const now = new Date();
+                
+                // --- LOGIKA DETERMINISTYCZNA ---
+                const todayUTC = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+                const startUTC = Date.UTC(START_DATE.getFullYear(), START_DATE.getMonth(), START_DATE.getDate());
+                
+                let dayDiff = Math.floor((todayUTC - startUTC) / MS_PER_DAY);
+                
+                if (dayDiff < 0) {
+                     dayDiff = (dayDiff % CYCLE_LENGTH_DAYS + CYCLE_LENGTH_DAYS) % CYCLE_LENGTH_DAYS;
+                }
+                
+                const indexInCycle = dayDiff % CYCLE_LENGTH_DAYS;
+                const bagIndex = Math.floor(indexInCycle / 18) % PRE_DEFINED_BAGS.length;
+                const numberIndex = indexInCycle % 18;
+                
+                const luckyNum = PRE_DEFINED_BAGS[bagIndex][numberIndex];
+
+                const themeIndex = now.getDate() % comicThemes.length;
+                const currentTheme = comicThemes[themeIndex];
+
+                // --- AKTUALIZACJA DOM ---
+                const root = document.documentElement;
+                root.style.setProperty('--theme-title-color', currentTheme.titleColor);
+                root.style.setProperty('--theme-number-color', currentTheme.numberColor);
+                root.style.setProperty('--theme-bg-gradient-start', currentTheme.bgGradientStart);
+                root.style.setProperty('--theme-bg-gradient-end', currentTheme.bgGradientEnd);
+                root.style.setProperty('--theme-border-color', currentTheme.borderColor);
+                root.style.setProperty('--theme-star-color', currentTheme.starColor);
+
+                const numText = document.getElementById('lucky-number-text');
+                if(numText) numText.textContent = luckyNum;
+                
+                const diceCol = document.getElementById('lucky-dice-column');
+                if(diceCol) {
+                    diceCol.innerHTML = '';
+                    let diceValues = [];
+                    if(luckyNum <= 6) diceValues = [luckyNum];
+                    else if(luckyNum <= 12) diceValues = [6, luckyNum-6].sort((a,b)=>a-b);
+                    else diceValues = [6, 6, luckyNum-12].sort((a,b)=>a-b);
+
+                    diceCol.className = '';
+                    if(diceValues.length === 1) diceCol.classList.add('one-dice-layout');
+                    else if(diceValues.length === 2) diceCol.classList.add('two-dice-layout');
+                    else diceCol.classList.add('three-dice-layout');
+
+                    diceValues.forEach(val => {
+                        const d = document.createElement('div');
+                        d.className = `dice value-${val}`;
+                        for(let i=0; i<val; i++) d.appendChild(document.createElement('div')).className='dot';
+                        diceCol.appendChild(d);
+                    });
+                }
+                
+                if (numText && luckyNum === 7) numText.classList.add('is-seven');
+                else if (numText) numText.classList.remove('is-seven');
+            } catch(e) { console.error("Błąd numeru:", e); }
+        }
+
+        // --- INICJALIZACJA DANYCH ---
+        function initHistoryData() {
+            const now = new Date();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            const dateKey = `${month}-${day}`;
+
+            if (FIXED_DATABASE[dateKey]) {
+                todaysEvents = FIXED_DATABASE[dateKey];
+                currentEventIndex = 0; 
+            } else {
+                todaysEvents = []; 
+            }
+        }
+
+        // --- WYŚWIETLANIE POJEDYNCZEJ CIEKAWOSTKI ---
+        function renderNextFact() {
+            const contentDiv = document.getElementById('history-content');
+            
+            if (todaysEvents.length > 0) {
+                const event = todaysEvents[currentEventIndex];
+                let cleanText = event.text.replace(/<[^>]*>?/gm, '');
+                contentDiv.innerHTML = `
+                    <div class="single-fact-year">${event.year}</div>
+                    <div class="single-fact-text">${cleanText}</div>
+                `;
+                currentEventIndex = (currentEventIndex + 1) % todaysEvents.length;
+            } else {
+                contentDiv.innerHTML = `
+                    <div class="single-fact-text" style="font-size:1.5em; font-weight:bold;">
+                        Weekend! 🎉<br>Odpoczywamy od historii.
+                    </div>
+                `;
+            }
+        }
+
+        // --- PRZEŁĄCZANIE WIDOKÓW ---
+        function switchView() {
+            try {
+                const va = document.getElementById('view-a');
+                const vb = document.getElementById('view-b');
+                
+                if(currentView === 'A') {
+                    renderNextFact();
+                    va.classList.remove('active');
+                    va.classList.add('inactive');
+                    vb.classList.remove('inactive');
+                    vb.classList.add('active');
+                    currentView = 'B';
+                } else {
+                    vb.classList.remove('active');
+                    vb.classList.add('inactive');
+                    va.classList.remove('inactive');
+                    va.classList.add('active');
+                    currentView = 'A';
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        // --- START ---
+        updateDateTime();
+        updateLuckyNumberAndTheme();
+        initHistoryData(); 
+        
+        setInterval(updateDateTime, 1000); 
+        setInterval(switchView, VIEW_DURATION); 
+
+    </script>
+</body>
+</html>
