@@ -40,4 +40,341 @@
         }
         
         .view.active { opacity: 1; z-index: 10; transform: translateY(0); }
-        .view.inactive { opacity:
+        .view.inactive { opacity: 0; z-index: 0; transform: translateY(20px); }
+        
+        /* Panel Layout */
+        .panel { flex: 1; display: flex; flex-direction: column; padding: 10px; box-sizing: border-box; align-items: center; }
+        #left-panel { background-color: #f9f9f9; border-right: 1px solid #eee; padding-top: 25px; }
+        #right-panel { background-color: #ffffff; padding-top: 25px; }
+        .bottom-spacer { height: 50px; width: 100%; }
+
+        /* Zegar */
+        #clock-container { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; flex-grow: 1; text-align: center; }
+        #dayofweek { font-size: 0.9em; font-weight: 400; color: #616161; text-transform: uppercase; margin-bottom: 2px; }
+        #current-date { font-size: 1.1em; color: #424242; margin-bottom: 5px; }
+        #current-time { font-size: 2.5em; font-weight: 300; color: #212121; }
+
+        /* Szczęśliwy Numer */
+        #lucky-number-container {
+            width: 90%; height: 100%; position: relative; display: flex; flex-direction: column;
+            align-items: center; border: 8px solid var(--theme-border-color);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5); overflow: hidden; padding: 5px; box-sizing: border-box;
+            background: linear-gradient(135deg, var(--theme-bg-gradient-start) 0%, var(--theme-bg-gradient-end) 100%);
+            color: var(--theme-number-color); flex-grow: 1; border-radius: 15px;
+        }
+        #lucky-number-container .title {
+            font-family: 'Bangers', cursive; font-size: 1.5em; line-height: 1.1; margin: 0 0 10px 0;
+            -webkit-text-stroke: 1.5px black; color: var(--theme-title-color); z-index: 10;
+        }
+        #lucky-content-wrapper { display: flex; flex-direction: row; justify-content: space-around; align-items: center; width: 100%; flex-grow: 1; }
+        #lucky-dice-column { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; width: 120px; animation: pulse 2s infinite ease-in-out; }
+        
+        #lucky-dice-column.one-dice-layout { gap: 0; }
+        #lucky-dice-column.three-dice-layout { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 5px; }
+        #lucky-dice-column.three-dice-layout .dice:nth-child(3) { grid-row: 1 / 3; grid-column: 2 / 3; align-self: center; justify-self: center; }
+
+        #lucky-number-text {
+            font-family: 'Bangers', cursive; font-size: 5em; line-height: 1; margin: 0;
+            -webkit-text-stroke: 2px black; text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            color: var(--theme-number-color); z-index: 10; transition: all 0.3s ease-out;
+        }
+        #lucky-number-text.is-seven { transform: scale(1.1); text-shadow: 4px 4px 0px cyan; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+        
+        /* Gwiazdki */
+        #lucky-number-container::before {
+            content: ''; position: absolute; z-index: 1; width: 2px; height: 2px;
+            background: var(--theme-star-color); border-radius: 50%;
+            box-shadow: 80px -20px 2px var(--theme-star-color), -50px 60px 1.5px var(--theme-star-color), 100px 100px 3px var(--theme-star-color);
+            animation: twinkle 3s infinite;
+        }
+        @keyframes twinkle { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* Kostki */
+        .dice { width: 55px; height: 55px; background: white; border: 3px solid black; border-radius: 8px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 6px; box-sizing: border-box; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+        .dot { width: 11px; height: 11px; background: black; border-radius: 50%; align-self: center; justify-self: center; }
+        .dice.value-1 .dot:nth-child(1) { grid-area: 2 / 2; }
+        .dice.value-2 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-2 .dot:nth-child(2) { grid-area: 3 / 3; }
+        .dice.value-3 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-3 .dot:nth-child(2) { grid-area: 2 / 2; } .dice.value-3 .dot:nth-child(3) { grid-area: 3 / 3; }
+        .dice.value-4 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-4 .dot:nth-child(2) { grid-area: 1 / 3; } .dice.value-4 .dot:nth-child(3) { grid-area: 3 / 1; } .dice.value-4 .dot:nth-child(4) { grid-area: 3 / 3; }
+        .dice.value-5 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-5 .dot:nth-child(2) { grid-area: 1 / 3; } .dice.value-5 .dot:nth-child(3) { grid-area: 2 / 2; } .dice.value-5 .dot:nth-child(4) { grid-area: 3 / 1; } .dice.value-5 .dot:nth-child(5) { grid-area: 3 / 3; }
+        .dice.value-6 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-6 .dot:nth-child(2) { grid-area: 1 / 3; } .dice.value-6 .dot:nth-child(3) { grid-area: 2 / 1; } .dice.value-6 .dot:nth-child(4) { grid-area: 2 / 3; } .dice.value-6 .dot:nth-child(5) { grid-area: 3 / 1; } .dice.value-6 .dot:nth-child(6) { grid-area: 3 / 3; }
+
+        /* Widok B (Historia) */
+        #view-b { flex-direction: column; justify-content: center; align-items: center; padding: 20px; background: linear-gradient(135deg, #fdfbf7 0%, #fff 100%); }
+        .history-container { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; border: 8px solid var(--theme-border-color); border-radius: 12px; padding: 15px; background: #fff; text-align: center; }
+        .history-title { font-family: 'Bangers', cursive; font-size: 2em; margin: 0 0 10px 0; -webkit-text-stroke: 1px black; }
+        .history-content { font-family: 'Roboto', sans-serif; font-size: 1.1em; color: #444; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; width: 100%; overflow-y: auto; }
+        .history-list { list-style: none; padding: 0; margin: 0; text-align: left; }
+        .history-item { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #eee; display: flex; align-items: baseline; }
+        .history-item:last-child { border: none; }
+        .history-year { font-weight: bold; color: #d63384; font-size: 1.2em; margin-right: 10px; min-width: 50px; }
+        .history-footer { margin-top: 5px; font-size: 0.8em; color: #888; font-style: italic; }
+
+        @media (max-width: 600px) {
+            #main-wrapper { width: 95%; height: 500px; flex-direction: column; }
+            .view { flex-direction: column; }
+            #lucky-content-wrapper { flex-direction: column; }
+            #lucky-dice-column { width: 100%; margin-bottom: 10px; }
+            #lucky-number-text { font-size: 3.5em; }
+        }
+    </style>
+</head>
+<body>
+    <div id="main-wrapper">
+        <div id="view-a" class="view active">
+            <div id="left-panel" class="panel">
+                <div id="clock-container">
+                    <div id="dayofweek">...</div>
+                    <div id="current-date">...</div>
+                    <div id="current-time">00:00:00</div>
+                </div>
+                <div class="bottom-spacer"></div>
+            </div>
+            <div id="right-panel" class="panel">
+                <div id="lucky-number-container">
+                    <h2 class="title">Szczęśliwy Numer</h2>
+                    <div id="lucky-content-wrapper">
+                        <div id="lucky-dice-column"></div>
+                        <div id="lucky-number-text">?</div>
+                    </div>
+                </div>
+                <div class="bottom-spacer"></div>
+            </div>
+        </div>
+        <div id="view-b" class="view inactive">
+            <div class="history-container">
+                <h2 class="history-title" style="color:#e63946">Dzisiaj w Historii!</h2>
+                <div id="history-content" class="history-content">
+                    Ładowanie wiedzy...
+                </div>
+                <div class="history-footer">Baza wiedzy: Antygravity & Wikipedia</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- RAPORTOWANIE BŁĘDÓW (Dla Ciebie) ---
+        window.onerror = function(msg, url, line) {
+            alert("Błąd w kodzie: " + msg + "\nLinia: " + line);
+            return false;
+        };
+
+        // --- BAZA DANYCH 25.11-19.12 (Bez weekendów) ---
+        const FIXED_DATABASE = {
+            "11-25": [
+                { year: "Święto", text: "Dziś obchodzimy Światowy Dzień Pluszowego Misia! 🧸 Idealny dzień na przytulanie." },
+                { year: "1764", text: "Stanisław August Poniatowski został koronowany na ostatniego króla Polski." },
+                { year: "1915", text: "Albert Einstein zaprezentował światu teorię względności, zmieniając naukę na zawsze." }
+            ],
+            "11-26": [
+                { year: "1922", text: "Odkryto grobowiec Tutanchamona. To jedno z najważniejszych odkryć w Egipcie." },
+                { year: "1865", text: "Wydano 'Alicję w Krainie Czarów'. Opowieść o białym króliku zna cały świat." }
+            ],
+            "11-27": [
+                { year: "1701", text: "Urodził się Anders Celsius. To dzięki niemu mierzymy temperaturę w stopniach Celsjusza." },
+                { year: "1895", text: "Alfred Nobel spisał testament, tworząc słynne Nagrody Nobla." }
+            ],
+            "11-28": [
+                { year: "1520", text: "Magellan wpłynął na Ocean Spokojny. Woda była tak spokojna, że stąd wzięła się nazwa." },
+                { year: "1918", text: "Józef Piłsudski wydał dekret dający Polkom prawa wyborcze." }
+            ],
+            "12-01": [
+                { year: "1959", text: "Podpisano Układ Antarktyczny. Antarktyda stała się kontynentem nauki i pokoju." },
+                { year: "1913", text: "Henry Ford uruchomił pierwszą linię montażową. Auta powstawały dużo szybciej." }
+            ],
+            "12-02": [
+                { year: "1993", text: "Naprawiono teleskop Hubble'a w kosmosie. Zaczął przesyłać piękne zdjęcia gwiazd." },
+                { year: "1804", text: "Napoleon Bonaparte został cesarzem Francji." }
+            ],
+            "12-03": [
+                { year: "1992", text: "Wysłano pierwszego SMS-a w historii. Brzmiał: 'Wesołych Świąt'." },
+                { year: "1967", text: "Przeprowadzono pierwszy udany przeszczep serca." }
+            ],
+            "12-04": [
+                { year: "Święto", text: "Barbórka! Dziś swoje święto obchodzą górnicy." },
+                { year: "1639", text: "Po raz pierwszy zaobserwowano planetę Wenus przechodzącą na tle Słońca." }
+            ],
+            "12-05": [
+                { year: "1901", text: "Urodził się Walt Disney, twórca Myszki Miki i Kaczora Donalda." },
+                { year: "1791", text: "Zmarł Wolfgang Amadeusz Mozart, genialny kompozytor." }
+            ],
+            "12-08": [
+                { year: "1955", text: "Zatwierdzono flagę Unii Europejskiej z 12 gwiazdami." },
+                { year: "2010", text: "Pierwszy lot prywatnego statku kosmicznego Dragon firmy SpaceX." }
+            ],
+            "12-09": [
+                { year: "1968", text: "Pokazano pierwszą myszkę komputerową. Była drewniana!" },
+                { year: "1990", text: "Lech Wałęsa został pierwszym prezydentem wolnej Polski." }
+            ],
+            "12-10": [
+                { year: "Święto", text: "Dzień Noblowski. Dziś wręcza się Nagrody Nobla." },
+                { year: "1903", text: "Maria Skłodowska-Curie odebrała swoją pierwszą Nagrodę Nobla." }
+            ],
+            "12-11": [
+                { year: "1946", text: "Powstał UNICEF, organizacja pomagająca dzieciom na całym świecie." },
+                { year: "1972", text: "Ostatnie lądowanie człowieka na Księżycu (misja Apollo 17)." }
+            ],
+            "12-12": [
+                { year: "1901", text: "Pierwszy sygnał radiowy przeleciał przez Ocean Atlantycki." },
+                { year: "1586", text: "Zmarł król Stefan Batory, wielki wódz." }
+            ],
+            "12-15": [
+                { year: "1859", text: "Urodził się twórca języka esperanto, Ludwik Zamenhof." },
+                { year: "1970", text: "Sonda Wenera 7 wylądowała na planecie Wenus." }
+            ],
+            "12-16": [
+                { year: "1773", text: "Bostońskie picie herbaty. Protestujący wrzucili herbatę do morza." },
+                { year: "1889", text: "Powstał słynny klub piłkarski AC Milan." }
+            ],
+            "12-17": [
+                { year: "1903", text: "Bracia Wright polecieli pierwszym samolotem. Lot trwał 12 sekund." },
+                { year: "1989", text: "Premiera serialu 'Simpsonowie'." }
+            ],
+            "12-18": [
+                { year: "1892", text: "Premiera baletu 'Dziadek do orzechów'. To symbol świąt." },
+                { year: "2015", text: "Zamknięto ostatnią kopalnię węgla w Wielkiej Brytanii." }
+            ],
+            "12-19": [
+                { year: "1843", text: "Wydano 'Opowieść wigilijną' Karola Dickensa." },
+                { year: "1972", text: "Astronauci Apollo 17 wrócili na Ziemię z Księżyca." }
+            ]
+        };
+
+        const VIEW_DURATION = 10000;
+        let currentView = 'A';
+        
+        function updateDateTime() {
+            try {
+                const now = new Date();
+                const timeEl = document.getElementById('current-time');
+                if(timeEl) {
+                    timeEl.textContent = now.toLocaleTimeString('pl-PL');
+                    document.getElementById('current-date').textContent = now.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+                    document.getElementById('dayofweek').textContent = now.toLocaleDateString('pl-PL', { weekday: 'long' });
+                }
+            } catch(e) { console.error("Błąd zegara", e); }
+        }
+
+        const comicThemes = [
+            { titleColor: "#a8dadc", numberColor: "#f1faee", bgGradientStart: "#000020", bgGradientEnd: "#4a0d66", borderColor: "black", starColor: "white" },
+            { titleColor: "#ff007f", numberColor: "#ffff00", bgGradientStart: "#00bfff", bgGradientEnd: "#ff4500", borderColor: "black", starColor: "white" },
+            { titleColor: "#dc143c", numberColor: "#ffffff", bgGradientStart: "#4169e1", bgGradientEnd: "#8a2be2", borderColor: "black", starColor: "#ffff00" }
+        ];
+
+        const PRE_DEFINED_BAGS = [
+            [3, 5, 17, 1, 9, 14, 6, 8, 12, 4, 10, 15, 2, 13, 7, 11, 18, 16],
+            [10, 4, 15, 2, 13, 7, 1, 18, 9, 16, 5, 11, 17, 3, 8, 14, 6, 12]
+        ];
+        
+        function updateLuckyNumberAndTheme() {
+            try {
+                const now = new Date();
+                const dayIndex = now.getDate(); 
+                const themeIndex = dayIndex % comicThemes.length;
+                const currentTheme = comicThemes[themeIndex];
+                
+                const bag = PRE_DEFINED_BAGS[dayIndex % PRE_DEFINED_BAGS.length];
+                const luckyNum = bag[dayIndex % bag.length];
+
+                const root = document.documentElement;
+                root.style.setProperty('--theme-title-color', currentTheme.titleColor);
+                root.style.setProperty('--theme-number-color', currentTheme.numberColor);
+                root.style.setProperty('--theme-bg-gradient-start', currentTheme.bgGradientStart);
+                root.style.setProperty('--theme-bg-gradient-end', currentTheme.bgGradientEnd);
+                root.style.setProperty('--theme-border-color', currentTheme.borderColor);
+                root.style.setProperty('--theme-star-color', currentTheme.starColor);
+
+                const numText = document.getElementById('lucky-number-text');
+                if(numText) numText.textContent = luckyNum;
+                
+                const diceCol = document.getElementById('lucky-dice-column');
+                if(diceCol) {
+                    diceCol.innerHTML = '';
+                    let diceValues = [];
+                    if(luckyNum <= 6) diceValues = [luckyNum];
+                    else if(luckyNum <= 12) diceValues = [6, luckyNum-6].sort((a,b)=>a-b);
+                    else diceValues = [6, 6, luckyNum-12].sort((a,b)=>a-b);
+
+                    diceCol.className = '';
+                    if(diceValues.length === 1) diceCol.classList.add('one-dice-layout');
+                    else if(diceValues.length === 2) diceCol.classList.add('two-dice-layout');
+                    else diceCol.classList.add('three-dice-layout');
+
+                    diceValues.forEach(val => {
+                        const d = document.createElement('div');
+                        d.className = `dice value-${val}`;
+                        for(let i=0; i<val; i++) d.appendChild(document.createElement('div')).className='dot';
+                        diceCol.appendChild(d);
+                    });
+                }
+                
+                if (numText && luckyNum === 7) numText.classList.add('is-seven');
+                else if (numText) numText.classList.remove('is-seven');
+            } catch(e) { console.error("Błąd numeru", e); }
+        }
+
+        async function loadHistory() {
+            try {
+                const now = new Date();
+                const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                const day = now.getDate().toString().padStart(2, '0');
+                const dateKey = `${month}-${day}`;
+
+                if (FIXED_DATABASE[dateKey]) {
+                    renderEvents(FIXED_DATABASE[dateKey]);
+                } else {
+                    // Brak danych w bazie (weekend)
+                    document.getElementById('history-content').innerHTML = '<div style="margin-top:20px;">Dziś weekend!<br>Odpoczywamy od historii.</div>';
+                }
+            } catch(e) {
+                console.error("Błąd historii", e);
+                document.getElementById('history-content').innerHTML = "Błąd ładowania.";
+            }
+        }
+
+        function renderEvents(events) {
+            let html = '<ul class="history-list">';
+            events.forEach(e => {
+                let cleanText = e.text.replace(/<[^>]*>?/gm, '');
+                html += `
+                    <li class="history-item">
+                        <span class="history-year">${e.year}</span>
+                        <span class="history-text">${cleanText}</span>
+                    </li>`;
+            });
+            html += '</ul>';
+            document.getElementById('history-content').innerHTML = html;
+        }
+
+        function switchView() {
+            try {
+                const va = document.getElementById('view-a');
+                const vb = document.getElementById('view-b');
+                if(currentView === 'A') {
+                    va.classList.remove('active');
+                    va.classList.add('inactive');
+                    vb.classList.remove('inactive');
+                    vb.classList.add('active');
+                    currentView = 'B';
+                } else {
+                    vb.classList.remove('active');
+                    vb.classList.add('inactive');
+                    va.classList.remove('inactive');
+                    va.classList.add('active');
+                    currentView = 'A';
+                }
+            } catch(e) { console.error("Błąd zmiany widoku", e); }
+        }
+
+        // Start
+        updateDateTime();
+        updateLuckyNumberAndTheme();
+        loadHistory();
+        
+        setInterval(updateDateTime, 1000);
+        setInterval(switchView, VIEW_DURATION);
+
+    </script>
+</body>
+</html>
