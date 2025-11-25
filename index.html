@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Antygravity - Cykliczny</title>
+    <title>Panel Antygravity - Final</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
     
@@ -41,10 +41,13 @@
         .view.active { opacity: 1; z-index: 10; transform: translateY(0); }
         .view.inactive { opacity: 0; z-index: 0; transform: translateY(20px); }
         
-        /* Panel Layout */
+        /* Panel Layout - USUNIĘTO NADMIAROWY PADDING Z GÓRY */
         .panel { flex: 1; display: flex; flex-direction: column; padding: 10px; box-sizing: border-box; align-items: center; }
-        #left-panel { background-color: #f9f9f9; border-right: 1px solid #eee; padding-top: 25px; }
-        #right-panel { background-color: #ffffff; padding-top: 25px; }
+        
+        /* ZMIANA: Usunięto padding-top: 25px, aby zlikwidować pusty pasek na górze */
+        #left-panel { background-color: #f9f9f9; border-right: 1px solid #eee; padding-top: 10px; }
+        #right-panel { background-color: #ffffff; padding-top: 10px; }
+        
         .bottom-spacer { height: 50px; width: 100%; }
 
         /* Zegar */
@@ -62,7 +65,8 @@
             color: var(--theme-number-color); flex-grow: 1; border-radius: 15px;
         }
         #lucky-number-container .title {
-            font-family: 'Bangers', cursive; font-size: 1.5em; line-height: 1.1; margin: 0 0 10px 0;
+            font-family: 'Bangers', cursive; font-size: 1.5em; line-height: 1.1; 
+            margin: 5px 0 5px 0; /* ZMNIEJSZONY MARGINES GÓRNY */
             -webkit-text-stroke: 1.5px black; color: var(--theme-title-color); z-index: 10;
         }
         #lucky-content-wrapper { display: flex; flex-direction: row; justify-content: space-around; align-items: center; width: 100%; flex-grow: 1; }
@@ -100,13 +104,13 @@
         .dice.value-6 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-6 .dot:nth-child(2) { grid-area: 1 / 3; } .dice.value-6 .dot:nth-child(3) { grid-area: 2 / 1; } .dice.value-6 .dot:nth-child(4) { grid-area: 2 / 3; } .dice.value-6 .dot:nth-child(5) { grid-area: 3 / 1; } .dice.value-6 .dot:nth-child(6) { grid-area: 3 / 3; }
 
         /* --- WIDOK B (HISTORIA POJEDYNCZA) --- */
-        #view-b { flex-direction: column; justify-content: center; align-items: center; padding: 20px; background: linear-gradient(135deg, #fdfbf7 0%, #fff 100%); }
-        .history-container { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; border: 8px solid var(--theme-border-color); border-radius: 12px; padding: 20px; background: #fff; text-align: center; justify-content: center;}
+        #view-b { flex-direction: column; justify-content: center; align-items: center; padding: 15px; background: linear-gradient(135deg, #fdfbf7 0%, #fff 100%); }
+        .history-container { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; border: 8px solid var(--theme-border-color); border-radius: 12px; padding: 10px 20px; background: #fff; text-align: center; justify-content: center;}
         
         .history-title { 
             font-family: 'Bangers', cursive; 
             font-size: 1.8em; 
-            margin: 0 0 20px 0; 
+            margin: 0 0 10px 0; /* ZMNIEJSZONY MARGINES */
             color: #e63946;
             -webkit-text-stroke: 1px black; 
         }
@@ -117,7 +121,7 @@
             justify-content: center;
             align-items: center;
             height: 100%;
-            width: 90%;
+            width: 95%;
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -126,16 +130,18 @@
             font-size: 3.5em; 
             color: #d63384;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             line-height: 1;
         }
 
+        /* DUŻY TEKST + MARGINES NA DOLE */
         .single-fact-text {
             font-family: 'Roboto', sans-serif;
-            font-size: 1.4em; 
-            line-height: 1.4;
+            font-size: 1.7em; 
+            line-height: 1.3;
             color: #333;
             font-weight: 300;
+            margin-bottom: 10px;
         }
 
         @keyframes fadeIn {
@@ -149,7 +155,7 @@
             #lucky-content-wrapper { flex-direction: column; }
             #lucky-dice-column { width: 100%; margin-bottom: 10px; }
             .single-fact-year { font-size: 2.5em; }
-            .single-fact-text { font-size: 1.2em; }
+            .single-fact-text { font-size: 1.4em; } 
         }
     </style>
 </head>
@@ -191,7 +197,7 @@
             return false;
         };
 
-        // --- BAZA DANYCH HISTORYCZNYCH ---
+        // --- BAZA DANYCH HISTORYCZNYCH (25.11 - 19.12) ---
         const FIXED_DATABASE = {
             "11-25": [
                 { year: "Święto", text: "Dziś obchodzimy Światowy Dzień Pluszowego Misia! 🧸 Czas przytulić swoją ulubioną maskotkę." },
@@ -291,171 +297,5 @@
             } catch(e) { console.error(e); }
         }
 
-        // --- KONFIGURACJA SZCZĘŚLIWEGO NUMERU (TWOJA ORYGINALNA) ---
-        const LUCKY_NUMBER_MAX = 18;
-
-        // 10 "worków", każdy zawiera potasowaną listę numerów 1-18
-        const PRE_DEFINED_BAGS = [
-            [3, 5, 17, 1, 9, 14, 6, 8, 12, 4, 10, 15, 2, 13, 7, 11, 18, 16], // Worek 1
-            [10, 4, 15, 2, 13, 7, 1, 18, 9, 16, 5, 11, 17, 3, 8, 14, 6, 12], // Worek 2
-            [7, 14, 2, 16, 9, 12, 5, 1, 11, 17, 3, 10, 6, 15, 18, 4, 13, 8], // Worek 3
-            [16, 6, 13, 8, 3, 18, 10, 2, 15, 5, 1, 14, 9, 11, 4, 17, 7, 12], // Worek 4
-            [5, 12, 17, 4, 11, 8, 15, 7, 2, 13, 9, 1, 18, 6, 10, 16, 3, 14], // Worek 5
-            [9, 1, 14, 6, 10, 16, 3, 13, 4, 17, 7, 12, 15, 2, 11, 18, 8, 5], // Worek 6
-            [2, 15, 8, 11, 4, 7, 13, 18, 6, 10, 16, 3, 14, 9, 1, 12, 5, 17], // Worek 7
-            [14, 3, 10, 12, 5, 17, 7, 4, 13, 9, 1, 18, 2, 8, 15, 6, 11, 16], // Worek 8
-            [11, 16, 6, 1, 8, 15, 9, 3, 12, 14, 17, 5, 13, 7, 2, 10, 18, 4], // Worek 9
-            [4, 18, 7, 13, 2, 10, 1, 16, 8, 15, 6, 11, 12, 5, 17, 9, 14, 3]  // Worek 10
-        ];
-
-        // Data startowa, od której liczymy dni
-        const START_DATE = new Date('2025-10-25T00:00:00Z');
-        const MS_PER_DAY = 1000 * 60 * 60 * 24;
-        // Całkowita długość cyklu: 10 worków * 18 numerów = 180 dni
-        const CYCLE_LENGTH_DAYS = PRE_DEFINED_BAGS.length * PRE_DEFINED_BAGS[0].length; 
-
-        // Motywy
-        const comicThemes = [
-            { titleColor: "#a8dadc", numberColor: "#f1faee", bgGradientStart: "#000020", bgGradientEnd: "#4a0d66", borderColor: "black", starColor: "white" },
-            { titleColor: "#ff007f", numberColor: "#ffff00", bgGradientStart: "#00bfff", bgGradientEnd: "#ff4500", borderColor: "black", starColor: "white" },
-            { titleColor: "#dc143c", numberColor: "#ffffff", bgGradientStart: "#4169e1", bgGradientEnd: "#8a2be2", borderColor: "black", starColor: "#ffff00" }
-        ];
-
-        function updateLuckyNumberAndTheme() {
-            try {
-                const now = new Date();
-                
-                // --- LOGIKA DETERMINISTYCZNA (PRZYWRÓCONA) ---
-                const todayUTC = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
-                const startUTC = Date.UTC(START_DATE.getFullYear(), START_DATE.getMonth(), START_DATE.getDate());
-                
-                // Obliczamy różnicę dni
-                let dayDiff = Math.floor((todayUTC - startUTC) / MS_PER_DAY);
-                
-                // Obsługa dat sprzed daty startowej (dla pewności)
-                if (dayDiff < 0) {
-                     // Obliczamy wstecz, zachowując cykl
-                     dayDiff = (dayDiff % CYCLE_LENGTH_DAYS + CYCLE_LENGTH_DAYS) % CYCLE_LENGTH_DAYS;
-                }
-                
-                // Gdzie jesteśmy w cyklu 180 dni?
-                const indexInCycle = dayDiff % CYCLE_LENGTH_DAYS;
-                
-                // Wybieramy worek i numer w worku
-                const bagIndex = Math.floor(indexInCycle / 18) % PRE_DEFINED_BAGS.length;
-                const numberIndex = indexInCycle % 18;
-                
-                const luckyNum = PRE_DEFINED_BAGS[bagIndex][numberIndex];
-
-                // Motyw zależy po prostu od dnia
-                const themeIndex = now.getDate() % comicThemes.length;
-                const currentTheme = comicThemes[themeIndex];
-
-                // --- AKTUALIZACJA DOM ---
-                const root = document.documentElement;
-                root.style.setProperty('--theme-title-color', currentTheme.titleColor);
-                root.style.setProperty('--theme-number-color', currentTheme.numberColor);
-                root.style.setProperty('--theme-bg-gradient-start', currentTheme.bgGradientStart);
-                root.style.setProperty('--theme-bg-gradient-end', currentTheme.bgGradientEnd);
-                root.style.setProperty('--theme-border-color', currentTheme.borderColor);
-                root.style.setProperty('--theme-star-color', currentTheme.starColor);
-
-                const numText = document.getElementById('lucky-number-text');
-                if(numText) numText.textContent = luckyNum;
-                
-                const diceCol = document.getElementById('lucky-dice-column');
-                if(diceCol) {
-                    diceCol.innerHTML = '';
-                    let diceValues = [];
-                    if(luckyNum <= 6) diceValues = [luckyNum];
-                    else if(luckyNum <= 12) diceValues = [6, luckyNum-6].sort((a,b)=>a-b);
-                    else diceValues = [6, 6, luckyNum-12].sort((a,b)=>a-b);
-
-                    diceCol.className = '';
-                    if(diceValues.length === 1) diceCol.classList.add('one-dice-layout');
-                    else if(diceValues.length === 2) diceCol.classList.add('two-dice-layout');
-                    else diceCol.classList.add('three-dice-layout');
-
-                    diceValues.forEach(val => {
-                        const d = document.createElement('div');
-                        d.className = `dice value-${val}`;
-                        for(let i=0; i<val; i++) d.appendChild(document.createElement('div')).className='dot';
-                        diceCol.appendChild(d);
-                    });
-                }
-                
-                if (numText && luckyNum === 7) numText.classList.add('is-seven');
-                else if (numText) numText.classList.remove('is-seven');
-            } catch(e) { console.error("Błąd numeru:", e); }
-        }
-
-        // --- INICJALIZACJA DANYCH ---
-        function initHistoryData() {
-            const now = new Date();
-            const month = (now.getMonth() + 1).toString().padStart(2, '0');
-            const day = now.getDate().toString().padStart(2, '0');
-            const dateKey = `${month}-${day}`;
-
-            if (FIXED_DATABASE[dateKey]) {
-                todaysEvents = FIXED_DATABASE[dateKey];
-                currentEventIndex = 0; 
-            } else {
-                todaysEvents = []; 
-            }
-        }
-
-        // --- WYŚWIETLANIE POJEDYNCZEJ CIEKAWOSTKI ---
-        function renderNextFact() {
-            const contentDiv = document.getElementById('history-content');
-            
-            if (todaysEvents.length > 0) {
-                const event = todaysEvents[currentEventIndex];
-                let cleanText = event.text.replace(/<[^>]*>?/gm, '');
-                contentDiv.innerHTML = `
-                    <div class="single-fact-year">${event.year}</div>
-                    <div class="single-fact-text">${cleanText}</div>
-                `;
-                currentEventIndex = (currentEventIndex + 1) % todaysEvents.length;
-            } else {
-                contentDiv.innerHTML = `
-                    <div class="single-fact-text" style="font-size:1.5em; font-weight:bold;">
-                        Weekend! 🎉<br>Odpoczywamy od historii.
-                    </div>
-                `;
-            }
-        }
-
-        // --- PRZEŁĄCZANIE WIDOKÓW ---
-        function switchView() {
-            try {
-                const va = document.getElementById('view-a');
-                const vb = document.getElementById('view-b');
-                
-                if(currentView === 'A') {
-                    renderNextFact();
-                    va.classList.remove('active');
-                    va.classList.add('inactive');
-                    vb.classList.remove('inactive');
-                    vb.classList.add('active');
-                    currentView = 'B';
-                } else {
-                    vb.classList.remove('active');
-                    vb.classList.add('inactive');
-                    va.classList.remove('inactive');
-                    va.classList.add('active');
-                    currentView = 'A';
-                }
-            } catch(e) { console.error(e); }
-        }
-
-        // --- START ---
-        updateDateTime();
-        updateLuckyNumberAndTheme();
-        initHistoryData(); 
-        
-        setInterval(updateDateTime, 1000); 
-        setInterval(switchView, VIEW_DURATION); 
-
-    </script>
-</body>
-</html>
+        // --- KONFIGURACJA SZCZĘŚLIWEGO NUMERU ---
+        const LUCKY_NUMBER_
