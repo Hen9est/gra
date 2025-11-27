@@ -16,6 +16,7 @@
             --theme-bg-gradient-end: #4a0d66;
             --theme-border-color: black;
             --theme-star-color: white;
+            --date-bg-color: #e63946; /* Wyraźny czerwony dla daty */
         }
         body {
             margin: 0; overflow: hidden; background-color: #f0f0f0;
@@ -100,10 +101,9 @@
         .dice.value-5 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-5 .dot:nth-child(2) { grid-area: 1 / 3; } .dice.value-5 .dot:nth-child(3) { grid-area: 2 / 2; } .dice.value-5 .dot:nth-child(4) { grid-area: 3 / 1; } .dice.value-5 .dot:nth-child(5) { grid-area: 3 / 3; }
         .dice.value-6 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-6 .dot:nth-child(2) { grid-area: 1 / 3; } .dice.value-6 .dot:nth-child(3) { grid-area: 2 / 1; } .dice.value-6 .dot:nth-child(4) { grid-area: 2 / 3; } .dice.value-6 .dot:nth-child(5) { grid-area: 3 / 1; } .dice.value-6 .dot:nth-child(6) { grid-area: 3 / 3; }
 
-        /* --- WIDOK B (HISTORIA POJEDYNCZA - PRZEBUDOWA) --- */
+        /* --- WIDOK B (HISTORIA POJEDYNCZA - ZMODYFIKOWANY) --- */
         #view-b { 
             flex-direction: column; 
-            /* ZMIANA: Wyrównanie do góry (flex-start), a nie do środka */
             justify-content: flex-start; 
             align-items: center; 
             padding: 15px; 
@@ -116,56 +116,65 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            /* ZMIANA: Usunięto czarny border (border: none) */
             border: none; 
             border-radius: 12px; 
-            /* ZMIANA: Padding tylko z góry, aby przesunąć treść */
             padding: 10px 20px 0 20px; 
             background: #fff; 
             text-align: center; 
-            /* ZMIANA: Wyrównanie wewnętrzne do góry */
             justify-content: flex-start;
         }
         
         .history-title { 
             font-family: 'Bangers', cursive; 
-            font-size: 1.8em; 
-            margin: 0 0 5px 0; /* Minimalny margines */
-            color: #e63946;
+            font-size: 1.4em; 
+            margin: 0 0 10px 0;
+            color: #1d3557; 
+            line-height: 1.2;
+            width: 100%;
+        }
+
+        /* Nowa, lepsza widoczność daty i większa czcionka */
+        .highlight-date {
+            display: inline-block;
+            background-color: var(--date-bg-color); /* Czerwone tło "naklejki" */
+            color: #ffffff; /* Biały tekst */
+            padding: 5px 12px; 
+            border: 2px solid black; 
+            border-radius: 8px; 
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2); 
+            transform: rotate(-1deg); 
             -webkit-text-stroke: 1px black; 
+            font-size: 1.3em; /* POWIĘKSZONA CZCIONKA */
+            letter-spacing: 1px;
+            margin-left: 5px;
         }
         
         .single-fact-box {
             display: flex;
             flex-direction: column;
-            /* ZMIANA: Wyrównanie treści wewnątrz boxa do góry */
             justify-content: flex-start;
             align-items: center;
             height: 100%;
             width: 95%;
             animation: fadeIn 0.8s ease-out;
-            margin-top: 5px; /* Minimalny odstęp od nagłówka */
+            margin-top: 5px; 
         }
 
         .single-fact-year {
             font-family: 'Bangers', cursive;
-            /* ZMIANA: Zmniejszona czcionka z 3.5em na 2.0em */
             font-size: 2.0em; 
             color: #d63384;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-            margin-bottom: 5px;
-            line-height: 1;
+            display: none; /* Rok ukryty w body, bo jest w nagłówku */
         }
 
         .single-fact-text {
             font-family: 'Roboto', sans-serif;
-            /* ZMIANA: Zwiększona czcionka treści */
             font-size: 1.8em; 
             line-height: 1.2;
             color: #333;
             font-weight: 300;
             margin-bottom: 0;
-            /* Tekst będzie na górze, więc dół pozostanie pusty */
+            margin-top: 10px;
         }
 
         @keyframes fadeIn {
@@ -178,7 +187,6 @@
             .view { flex-direction: column; }
             #lucky-content-wrapper { flex-direction: column; }
             #lucky-dice-column { width: 100%; margin-bottom: 10px; }
-            .single-fact-year { font-size: 1.8em; }
             .single-fact-text { font-size: 1.5em; } 
         }
     </style>
@@ -207,9 +215,10 @@
         </div>
         <div id="view-b" class="view inactive">
             <div class="history-container">
-                <h2 class="history-title">Czy wiesz, że...</h2>
+                <!-- Nagłówek dynamiczny -->
+                <h2 class="history-title" id="dynamic-history-title">...</h2>
                 <div id="history-content" class="single-fact-box">
-                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -220,81 +229,99 @@
         // --- BAZA DANYCH HISTORYCZNYCH ---
         const FIXED_DATABASE = {
             "11-25": [
-                { year: "ŚWIĘTO", text: "Dziś obchodzimy Światowy Dzień Pluszowego Misia! 🧸 Czas przytulić swoją ulubioną maskotkę." },
-                { year: "1764", text: "Stanisław August Poniatowski został koronowany na ostatniego króla Polski." },
-                { year: "1915", text: "Albert Einstein zaprezentował światu teorię względności." }
+                { year: "ŚWIĘTO", text: "Dziś Dzień Pluszowego Misia! 🧸 Pierwszy pluszak Teddy powstał w USA dokładnie w 1902 roku." },
+                { year: "1764", text: "Stanisław August Poniatowski został koronowany. Był to ostatni król w historii Polski." },
+                { year: "1915", text: "Albert Einstein przedstawił światu Ogólną Teorię Względności. To ona wyjaśnia grawitację! 🧠" }
             ],
             "11-26": [
-                { year: "1922", text: "Odkryto grobowiec Tutanchamona. Było to wielkie odkrycie w Egipcie." },
-                { year: "1865", text: "Wydano książkę 'Alicja w Krainie Czarów'." }
+                { year: "1922", text: "Odkryto grobowiec Tutanchamona. W środku znaleziono 5000 przedmiotów ze złota!" },
+                { year: "1865", text: "Wydano 'Alicję w Krainie Czarów'. Książka ma już ponad 150 lat, a wciąż bawi dzieci!" },
+                { year: "2011", text: "Z Ziemi wystartował łazik Curiosity. To największe mobilne laboratorium, jakie wysłaliśmy na Marsa. 🚀" }
             ],
             "11-27": [
-                { year: "1701", text: "Urodził się Anders Celsius. Dzięki niemu mamy stopnie Celsjusza." },
-                { year: "1895", text: "Alfred Nobel spisał testament, tworząc Nagrody Nobla." }
+                { year: "ŚWIĘTO", text: "Święto Dziękczynienia (Thanksgiving)! 🦃 W USA rodziny spotykają się przy stole i jedzą pieczonego indyka." },
+                { year: "1701", text: "Urodził się Anders Celsius. To dzięki niemu wiemy, że woda zamarza przy 0°C." },
+                { year: "2001", text: "Teleskop Hubble'a odkrył atmosferę na planecie spoza Układu Słonecznego (Osiris). To był przełom!" }
             ],
             "11-28": [
-                { year: "1520", text: "Magellan wpłynął na Ocean Spokojny." },
-                { year: "1918", text: "Józef Piłsudski dał Polkom prawa wyborcze." }
+                { year: "SZKOŁA", text: "Dziś bawimy się w Andrzejki! 🕯️ Lanie wosku przez klucz, wróżby i tańce. Ciekawe, co przyniesie przyszłość?" },
+                { year: "1520", text: "Ferdynand Magellan wpłynął na Ocean Spokojny. Nazwał go tak, bo woda była cicha i gładka." },
+                { year: "1918", text: "Józef Piłsudski podpisał dekret, dzięki któremu Polki mogły wreszcie głosować w wyborach." }
             ],
             "12-01": [
-                { year: "1959", text: "Antarktyda stała się kontynentem nauki i pokoju." },
-                { year: "1913", text: "Henry Ford uruchomił pierwszą linię montażową aut." }
+                { year: "1959", text: "Antarktyda została ogłoszona kontynentem nauki. Nie można tam prowadzić wojen!" },
+                { year: "1913", text: "Henry Ford uruchomił taśmę produkcyjną. Samochody zaczęto składać w rekordowym tempie." },
+                { year: "1783", text: "Pierwszy lot balonem z ludźmi na pokładzie! Jacques Charles wzbił się w powietrze dzięki wodorowi. 🎈" }
             ],
             "12-02": [
-                { year: "1993", text: "Naprawiono teleskop Hubble'a w kosmosie." },
-                { year: "1804", text: "Napoleon Bonaparte został cesarzem Francji." }
+                { year: "1993", text: "Kosmonauci naprawili teleskop Hubble'a. Dzięki temu widzimy odległe galaktyki." },
+                { year: "1804", text: "Napoleon Bonaparte koronował się na cesarza Francji. Sam włożył sobie koronę na głowę." },
+                { year: "1942", text: "Enrico Fermi uruchomił pierwszy reaktor jądrowy. Tak zaczęła się era atomowa. ⚛️" }
             ],
             "12-03": [
-                { year: "1992", text: "Wysłano pierwszego SMS-a: 'Wesołych Świąt'." },
-                { year: "1967", text: "Pierwszy udany przeszczep serca." }
+                { year: "1992", text: "Wysłano pierwszego SMS-a w historii. Jego treść brzmiała po prostu: 'Wesołych Świąt'." },
+                { year: "1967", text: "Pierwszy przeszczep serca na świecie. To był przełom w medycynie ratującej życie." },
+                { year: "1973", text: "Sonda Pioneer 10 przesłała pierwsze zdjęcia Jowisza. To największa planeta w naszym Układzie! 🪐" }
             ],
             "12-04": [
-                { year: "BARBÓRKA", text: "Dziś swoje święto obchodzą wszyscy górnicy!" },
-                { year: "1639", text: "Zaobserwowano Wenus na tle Słońca." }
+                { year: "BARBÓRKA", text: "Dziś Barbórka! Święto górników, ale też geologów poszukujących skarbów ziemi." },
+                { year: "1639", text: "Astronomowie po raz pierwszy zobaczyli planetę Wenus przechodzącą na tle Słońca." },
+                { year: "1996", text: "Wystrzelono sondę Mars Pathfinder. Wiozła pierwszego małego łazika o nazwie Sojourner." }
             ],
             "12-05": [
-                { year: "1901", text: "Urodził się Walt Disney, twórca Myszki Miki." },
-                { year: "1791", text: "Zmarł wybitny kompozytor Wolfgang Amadeusz Mozart." }
+                { year: "1901", text: "Urodził się Walt Disney. To on stworzył Myszkę Miki, Kaczora Donalda i Disneyland." },
+                { year: "1791", text: "Zmarł Wolfgang Amadeusz Mozart. Był geniuszem, który komponował muzykę jako 5-latek." },
+                { year: "2014", text: "Pierwszy testowy lot statku Orion. W przyszłości ma on zabrać ludzi z powrotem na Księżyc! 🌑" }
             ],
             "12-08": [
-                { year: "1955", text: "Powstała flaga Unii Europejskiej." },
-                { year: "2010", text: "Pierwszy lot prywatnego statku kosmicznego Dragon." }
+                { year: "1955", text: "Rada Europy przyjęła flagę z 12 gwiazdami. Dziś to flaga naszej Unii Europejskiej." },
+                { year: "2010", text: "Prywatny statek Dragon wrócił z orbity. Tak zaczęła się era kosmicznych taksówek." },
+                { year: "1990", text: "Sonda Galileo minęła Ziemię, robiąc nam piękne zdjęcia w drodze do Jowisza." }
             ],
             "12-09": [
-                { year: "1968", text: "Pokazano pierwszą myszkę komputerową z drewna." },
-                { year: "1990", text: "Lech Wałęsa został prezydentem Polski." }
+                { year: "1968", text: "Pokazano pierwszą myszkę komputerową. Była duża, kanciasta i zrobiona z drewna." },
+                { year: "1990", text: "Lech Wałęsa wygrał wybory i został pierwszym prezydentem wybranym przez naród." },
+                { year: "1978", text: "Sondy Pioneer Venus weszły w atmosferę Wenus. Odkryły tam straszne gorąco i chmury kwasu!" }
             ],
             "12-10": [
-                { year: "NOBEL", text: "Dziś wręcza się Nagrody Nobla." },
-                { year: "1903", text: "Maria Skłodowska-Curie odebrała Nagrodę Nobla." }
+                { year: "NOBEL", text: "Dziś w Szwecji król wręcza Nagrody Nobla. To najważniejszy dzień dla nauki." },
+                { year: "1903", text: "Maria Skłodowska-Curie odebrała Nobla. Jest jedyną kobietą z dwiema takimi nagrodami." },
+                { year: "1815", text: "Urodziła się Ada Lovelace. Uważa się ją za pierwszą programistkę w historii (jeszcze przed komputerami!). 💻" }
             ],
             "12-11": [
-                { year: "1946", text: "Powstał UNICEF, by pomagać dzieciom." },
-                { year: "1972", text: "Ostatnie lądowanie człowieka na Księżycu." }
+                { year: "1946", text: "Powstał UNICEF. To organizacja, która karmi i leczy dzieci w najbiedniejszych krajach." },
+                { year: "1972", text: "Ostatni ludzie na Księżycu (Apollo 17). Od tamtej pory nikt tam nie lądował." },
+                { year: "1844", text: "Dr Horace Wells po raz pierwszy użył gazu rozweselającego u dentysty. Koniec z bólem! 🦷" }
             ],
             "12-12": [
-                { year: "1901", text: "Pierwszy sygnał radiowy przez Atlantyk." },
-                { year: "1586", text: "Zmarł król Polski Stefan Batory." }
+                { year: "1901", text: "Guglielmo Marconi przesłał sygnał radiowy przez ocean. Tak zaczęła się era telefonów i radia." },
+                { year: "1955", text: "Opatentowano poduszkowiec. To pojazd, który unosi się na powietrzu nad wodą i lądem!" },
+                { year: "1961", text: "Wystrzelono OSCAR 1. To pierwszy satelita zbudowany przez zwykłych ludzi (krótkofalowców), nie rząd. 🛰️" }
             ],
             "12-15": [
-                { year: "1859", text: "Urodził się Ludwik Zamenhof, twórca Esperanto." },
-                { year: "1970", text: "Sonda wylądowała na planecie Wenus." }
+                { year: "1859", text: "Urodził się Ludwik Zamenhof. Wymyślił język Esperanto, by ludzie na świecie się rozumieli." },
+                { year: "1970", text: "Sonda Wenera 7 wylądowała na Wenus. Przesłała dane, zanim przegrzała się w 475°C!" },
+                { year: "1612", text: "Simon Marius jako pierwszy zobaczył przez teleskop Galaktykę Andromedy – naszą kosmiczną sąsiadkę. ✨" }
             ],
             "12-16": [
-                { year: "1773", text: "Bostońskie picie herbaty (protest w USA)." },
-                { year: "1889", text: "Powstał klub piłkarski AC Milan." }
+                { year: "1773", text: "Bostońskie picie herbaty. Amerykanie wyrzucili ładunek herbaty do morza na znak protestu." },
+                { year: "1899", text: "Założono klub AC Milan. To jedna z najsłynniejszych drużyn piłkarskich świata. " },
+                { year: "1947", text: "W USA zbudowano pierwszy tranzystor. Bez tego małego elementu nie byłoby dziś smartfonów! 📱" }
             ],
             "12-17": [
-                { year: "1903", text: "Bracia Wright polecieli pierwszym samolotem." },
-                { year: "1989", text: "Premiera serialu 'Simpsonowie'." }
+                { year: "1903", text: "Bracia Wright polecieli samolotem. Lot trwał tylko 12 sekund, ale zmienił świat." },
+                { year: "1989", text: "Pierwszy odcinek Simpsonów. To najdłużej nadawana kreskówka w historii TV." },
+                { year: "1938", text: "Odkryto, że atom można rozbić (rozszczepienie jądra). Tak zaczęła się era energii atomowej." }
             ],
             "12-18": [
-                { year: "1892", text: "Premiera baletu 'Dziadek do orzechów'." },
-                { year: "2015", text: "Zamknięto ostatnią kopalnię węgla w Anglii." }
+                { year: "1892", text: "Premiera baletu 'Dziadek do orzechów'. To piękna bajka, którą oglądamy w Święta." },
+                { year: "2015", text: "Wielka Brytania zamknęła ostatnią kopalnię węgla. Koniec pewnej epoki." },
+                { year: "1958", text: "Wystrzelono pierwszego satelitę, który potrafił 'mówić' (SCORE). Przesłał świąteczne życzenia z kosmosu! 📡" }
             ],
             "12-19": [
-                { year: "1843", text: "Wydano 'Opowieść wigilijną' Dickensa." },
-                { year: "1972", text: "Astronauci wrócili z Księżyca na Ziemię." }
+                { year: "1843", text: "Charles Dickens wydał 'Opowieść wigilijną'. To historia o magii Bożego Narodzenia." },
+                { year: "1972", text: "Kapsuła Apollo 17 wpadła do oceanu. Astronauci bezpiecznie wrócili z Księżyca." },
+                { year: "2013", text: "Wystrzelono teleskop Gaia. Jego misja to stworzenie dokładnej mapy miliarda gwiazd! ⭐" }
             ]
         };
 
@@ -387,7 +414,6 @@
             } catch(e) { console.error(e); }
         }
 
-        // Historia
         function initHistoryData() {
             const now = new Date();
             const month = (now.getMonth() + 1).toString().padStart(2, '0');
@@ -398,16 +424,35 @@
         }
 
         function renderNextFact() {
+            const now = new Date();
+            const options = { day: 'numeric', month: 'long' };
+            const dateString = now.toLocaleDateString('pl-PL', options).toUpperCase();
+            
+            const header = document.getElementById('dynamic-history-title');
             const contentDiv = document.getElementById('history-content');
+
             if (todaysEvents.length > 0) {
                 const event = todaysEvents[currentEventIndex];
+                
+                // Sprawdzamy czy rok jest liczbą (np. 1922) czy tekstem (np. ŚWIĘTO)
+                const isYearNumber = /^\d{3,4}$/.test(event.year);
+                
+                // Budujemy suffix
+                let titleSuffix = isYearNumber ? `${event.year} ROKU` : event.year;
+                
+                // Aktualizujemy nagłówek z datą w naklejce
+                header.innerHTML = `CZY WIESZ, ŻE <span class="highlight-date">${dateString} ${titleSuffix}</span>`;
+                
                 let cleanText = event.text.replace(/<[^>]*>?/gm, '');
+                
+                // Treść
                 contentDiv.innerHTML = `
-                    <div class="single-fact-year">${event.year}</div>
                     <div class="single-fact-text">${cleanText}</div>
                 `;
+                
                 currentEventIndex = (currentEventIndex + 1) % todaysEvents.length;
             } else {
+                header.innerHTML = `CZY WIESZ, ŻE <span class="highlight-date">${dateString}</span>`;
                 contentDiv.innerHTML = `<div class="single-fact-text" style="margin-top:20px;">Weekend! 🎉<br>Odpoczywamy.</div>`;
             }
         }
