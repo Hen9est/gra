@@ -139,299 +139,299 @@
     <script>
         const apiKey = "";
         
-        // --- BAZA DANYCH HISTORYCZNYCH (Polska i Europa na pierwszym planie) ---
-// Uzupełniono o stabilne linki do grafik (Wikimedia Commons)
+       // --- BAZA DANYCH HISTORYCZNYCH (Polska i Europa na pierwszym planie) ---
+// Uzupełniono o linki w formacie Special:FilePath (bardziej stabilne przekierowania Wiki)
 
 let FIXED_DATABASE = {
     // STYCZEŃ 2026
     "01-07": [
-        {y:"1610", t:"Galileusz odkrył 4 największe księżyce Jowisza. Udowodnił, że nie wszystko w kosmosie krąży wokół Ziemi!", img:"https://upload.wikimedia.org/wikipedia/commons/d/d4/Galileo_Galilei_by_Justus_Sustermans.jpg"}, 
-        {y:"1785", t:"Pierwszy lot balonem nad morzem (Kanał La Manche). Pokazano, że człowiek potrafi latać między krajami.", img:"https://upload.wikimedia.org/wikipedia/commons/6/6e/Blanchard_crossing_English_Channel.jpg"}, 
-        {y:"1882", t:"Jan Matejko został członkiem paryskiej Akademii. Jego obrazy rozsławiły Polskę w całej Europie.", img:"https://upload.wikimedia.org/wikipedia/commons/8/87/Jan_Matejko_Self-Portrait.jpg"}
+        {y:"1610", t:"Galileusz odkrył 4 największe księżyce Jowisza. Udowodnił, że nie wszystko w kosmosie krąży wokół Ziemi!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Justus_Sustermans_-_Portrait_of_Galileo_Galilei,_1636.jpg?width=300"}, 
+        {y:"1785", t:"Pierwszy lot balonem nad morzem (Kanał La Manche). Pokazano, że człowiek potrafi latać między krajami.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Blanchard_crossing_English_Channel.jpg?width=300"}, 
+        {y:"1882", t:"Jan Matejko został członkiem paryskiej Akademii. Jego obrazy rozsławiły Polskę w całej Europie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Matejko_Self-portrait.jpg?width=300"}
     ],
     "01-08": [
-        {y:"1942", t:"Urodził się Stephen Hawking. Badał czarne dziury, mimo że prawie całe życie spędził na wózku.", img:"https://upload.wikimedia.org/wikipedia/commons/e/eb/Stephen_Hawking.StarChild.jpg"}, 
-        {y:"1747", t:"Otwarto Bibliotekę Załuskich w Warszawie. To była jedna z pierwszych bibliotek narodowych na świecie!", img:"https://upload.wikimedia.org/wikipedia/commons/0/03/Biblioteka_Zaluskich_Warszawa_1.jpg"}, 
-        {y:"1927", t:"W Polsce ruszyło nowoczesne wydawnictwo prasowe, które docierało do tysięcy ludzi.", img:"https://upload.wikimedia.org/wikipedia/commons/4/4df/Ilustrowany_Kuryer_Codzienny_1927_front_page.jpg"}
+        {y:"1942", t:"Urodził się Stephen Hawking. Badał czarne dziury, mimo że prawie całe życie spędził na wózku.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Stephen_Hawking.StarChild.jpg?width=300"}, 
+        {y:"1747", t:"Otwarto Bibliotekę Załuskich w Warszawie. To była jedna z pierwszych bibliotek narodowych na świecie!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Biblioteka_Zaluskich_Warszawa_1.jpg?width=300"}, 
+        {y:"1927", t:"W Polsce ruszyło nowoczesne wydawnictwo prasowe, które docierało do tysięcy ludzi.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Ilustrowany_Kuryer_Codzienny_1927_front_page.jpg?width=300"}
     ],
     "01-09": [
-        {y:"1890", t:"Urodził się Karel Čapek. To on wymyślił słowo ROBOT, by opisać mechaniczne postacie pomagające ludziom.", img:"https://upload.wikimedia.org/wikipedia/commons/0/0e/Karel_Capek_1930s.jpg"}, 
-        {y:"1839", t:"Wynaleziono dagerotyp – prababcię aparatu. Po raz pierwszy w historii można było zrobić trwałe zdjęcie!", img:"https://upload.wikimedia.org/wikipedia/commons/4/4b/Louis_Daguerre_2.jpg"}, 
-        {y:"1993", t:"Pierwszy finał Wielkiej Orkiestry Świątecznej Pomocy. Polacy zaczęli wspólnie pomagać chorym dzieciom.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/25._Fina%C5%82_Wielkiej_Orkiestry_%C5%9Awi%C4%85tecznej_Pomocy_w_Toruniu.jpg/640px-25._Fina%C5%82_Wielkiej_Orkiestry_%C5%9Awi%C4%85tecznej_Pomocy_w_Toruniu.jpg"}
+        {y:"1890", t:"Urodził się Karel Čapek. To on wymyślił słowo ROBOT, by opisać mechaniczne postacie pomagające ludziom.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Karel_Capek_1930s.jpg?width=300"}, 
+        {y:"1839", t:"Wynaleziono dagerotyp – prababcię aparatu. Po raz pierwszy w historii można było zrobić trwałe zdjęcie!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Louis_Daguerre_2.jpg?width=300"}, 
+        {y:"1993", t:"Pierwszy finał Wielkiej Orkiestry Świątecznej Pomocy. Polacy zaczęli wspólnie pomagać chorym dzieciom.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/25._Finał_Wielkiej_Orkiestry_Świątecznej_Pomocy_w_Toruniu.jpg?width=300"}
     ],
     "01-12": [
-        {y:"1896", t:"W Niemczech wykonano pierwsze w historii zdjęcie rentgenowskie. Lekarz zobaczył kości dłoni bez nacinania skóry!", img:"https://upload.wikimedia.org/wikipedia/commons/b/bb/First_medical_X-ray_by_Wilhelm_R%C3%B6ntgen_of_his_wife_Anna_Bertha_Ludwig%27s_hand_-_18951222.jpg"}, 
-        {y:"1950", t:"Wprowadzono w Polsce obowiązek szkolny. Każde dziecko w naszym kraju musiało odtąd chodzić do szkoły.", img:"https://upload.wikimedia.org/wikipedia/commons/2/22/Sala_lekcyjna_w_szkole_w_Zalesiu_G%C3%B3rnym_lata_50._XX_wieku.jpg"}, 
-        {y:"1628", t:"Urodził się Charles Perrault, autor słynnych bajek, m.in. o Czerwonym Kapturku.", img:"https://upload.wikimedia.org/wikipedia/commons/2/23/Charles_Perrault_Philippe_Lallemand.jpg"}
+        {y:"1896", t:"W Niemczech wykonano pierwsze w historii zdjęcie rentgenowskie. Lekarz zobaczył kości dłoni bez nacinania skóry!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/First_medical_X-ray_by_Wilhelm_Röntgen_of_his_wife_Anna_Bertha_Ludwig's_hand_-_18951222.jpg?width=300"}, 
+        {y:"1950", t:"Wprowadzono w Polsce obowiązek szkolny. Każde dziecko w naszym kraju musiało odtąd chodzić do szkoły.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Sala_lekcyjna_w_szkole_w_Zalesiu_Górnym_lata_50._XX_wieku.jpg?width=300"}, 
+        {y:"1628", t:"Urodził się Charles Perrault, autor słynnych bajek, m.in. o Czerwonym Kapturku.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Charles_Perrault_Philippe_Lallemand.jpg?width=300"}
     ],
     "01-13": [
-        {y:"1910", t:"Pierwsza publiczna transmisja radiowa. Ludzie mogli usłyszeć muzykę w swoim domu przez radio!", img:"https://upload.wikimedia.org/wikipedia/commons/a/a6/Lee_De_Forest_with_radio.jpg"}, 
-        {y:"1957", t:"Opatentowano FRISBEE – prosta zabawka (latający talerz), która podbiła światowe parki.", img:"https://upload.wikimedia.org/wikipedia/commons/3/3d/Frisbee_Ken_Westerfield.jpg"}, 
-        {y:"1903", t:"W Warszawie ruszyła pierwsza publiczna elektrownia. Na ulicach miasta zapłonęły elektryczne latarnie.", img:"https://upload.wikimedia.org/wikipedia/commons/8/8f/Elektrownia_Powi%C5%9Ble_1935.jpg"}
+        {y:"1910", t:"Pierwsza publiczna transmisja radiowa. Ludzie mogli usłyszeć muzykę w swoim domu przez radio!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Lee_De_Forest_with_radio.jpg?width=300"}, 
+        {y:"1957", t:"Opatentowano FRISBEE – prosta zabawka (latający talerz), która podbiła światowe parki.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Frisbee_Ken_Westerfield.jpg?width=300"}, 
+        {y:"1903", t:"W Warszawie ruszyła pierwsza publiczna elektrownia. Na ulicach miasta zapłonęły elektryczne latarnie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Elektrownia_Powiśle_1935.jpg?width=300"}
     ],
     "01-14": [
-        {y:"1899", t:"W Łodzi otwarto pierwsze stałe kino w Polsce. Nazywało się 'Teatr Żywych Fotografii'.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Kinematograf_p1.jpg/640px-Kinematograf_p1.jpg"}, 
-        {y:"2005", t:"Europejska sonda Huygens wylądowała na Tytanie (księżycu Saturna). To najdalsze lądowanie maszyny w historii.", img:"https://upload.wikimedia.org/wikipedia/commons/7/75/Huygens_on_Titan_surface.jpg"}, 
-        {y:"1913", t:"Albert Schweitzer otwiera szpital w Gabonie. Ten lekarz poświęcił życie pomaganiu chorym w dżungli.", img:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Bundesarchiv_Bild_183-D0116-0041-019%2C_Albert_Schweitzer.jpg"}
+        {y:"1899", t:"W Łodzi otwarto pierwsze stałe kino w Polsce. Nazywało się 'Teatr Żywych Fotografii'.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Kinematograf_p1.jpg?width=300"}, 
+        {y:"2005", t:"Europejska sonda Huygens wylądowała na Tytanie (księżycu Saturna). To najdalsze lądowanie maszyny w historii.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Huygens_on_Titan_surface.jpg?width=300"}, 
+        {y:"1913", t:"Albert Schweitzer otwiera szpital w Gabonie. Ten lekarz poświęcił życie pomaganiu chorym w dżungli.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Bundesarchiv_Bild_183-D0116-0041-019,_Albert_Schweitzer.jpg?width=300"}
     ],
     "01-15": [
-        {y:"2001", t:"Narodziny Wikipedii! Darmowej encyklopedii, którą każdy może współtworzyć.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/640px-Wikipedia-logo-v2.svg.png"}, 
-        {y:"1759", t:"Otwarcie British Museum w Londynie. Można tam zobaczyć skarby z całego świata.", img:"https://upload.wikimedia.org/wikipedia/commons/3/3a/British_Museum_Reading_Room.jpg"}, 
-        {y:"1990", t:"Radio RMF FM zaczyna nadawać z Krakowa jako pierwsza prywatna stacja radiowa w wolnej Polsce.", img:"https://upload.wikimedia.org/wikipedia/commons/9/9e/Kopiec_Kosciuszki_Krakow.jpg"}
+        {y:"2001", t:"Narodziny Wikipedii! Darmowej encyklopedii, którą każdy może współtworzyć.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Wikipedia-logo-v2.svg?width=300"}, 
+        {y:"1759", t:"Otwarcie British Museum w Londynie. Można tam zobaczyć skarby z całego świata.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/British_Museum_Reading_Room.jpg?width=300"}, 
+        {y:"1990", t:"Radio RMF FM zaczyna nadawać z Krakowa jako pierwsza prywatna stacja radiowa w wolnej Polsce.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Kopiec_Kosciuszki_Krakow.jpg?width=300"}
     ],
     "01-16": [
-        {y:"1919", t:"Słynny pianista Ignacy Jan Paderewski został premierem Polski. Łączył świat wielkiej muzyki z polityką.", img:"https://upload.wikimedia.org/wikipedia/commons/f/f7/Ignacy_Jan_Paderewski_1910s.jpg"}, 
-        {y:"1909", t:"Wyprawa pod wodzą Shackletona odkryła południowy biegun magnetyczny.", img:"https://upload.wikimedia.org/wikipedia/commons/5/52/Ernest_Shackleton_1909.jpg"}, 
-        {y:"1969", t:"Pierwszy spacer kosmonautów między statkami na orbicie – wielki test przed lotem na Księżyc.", img:"https://upload.wikimedia.org/wikipedia/commons/2/23/Soyuz_4_and_Soyuz_5_docking.jpg"}
+        {y:"1919", t:"Słynny pianista Ignacy Jan Paderewski został premierem Polski. Łączył świat wielkiej muzyki z polityką.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Ignacy_Jan_Paderewski_1910s.jpg?width=300"}, 
+        {y:"1909", t:"Wyprawa pod wodzą Shackletona odkryła południowy biegun magnetyczny.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Ernest_Shackleton_1909.jpg?width=300"}, 
+        {y:"1969", t:"Pierwszy spacer kosmonautów między statkami na orbicie – wielki test przed lotem na Księżyc.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Soyuz_4_and_Soyuz_5_docking.jpg?width=300"}
     ],
     "01-19": [
-        {y:"1892", t:"Urodził się Stefan Banach. Genialny polski matematyk, którego odkrycia zna każdy naukowiec na świecie.", img:"https://upload.wikimedia.org/wikipedia/commons/7/76/Stefan_Banach.jpg"}, 
-        {y:"1736", t:"Urodził się James Watt ze Szkocji. Udoskonalił silnik parowy i zmienił cały przemysł.", img:"https://upload.wikimedia.org/wikipedia/commons/9/91/James_Watt_by_Henry_Howard.jpg"}, 
-        {y:"1915", t:"Wynalezienie neonu – kolorowych, świecących rur, które do dziś rozświetlają nasze miasta.", img:"https://upload.wikimedia.org/wikipedia/commons/a/ad/Neon_lamp.jpg"}
+        {y:"1892", t:"Urodził się Stefan Banach. Genialny polski matematyk, którego odkrycia zna każdy naukowiec na świecie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Stefan_Banach.jpg?width=300"}, 
+        {y:"1736", t:"Urodził się James Watt ze Szkocji. Udoskonalił silnik parowy i zmienił cały przemysł.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/James_Watt_by_Henry_Howard.jpg?width=300"}, 
+        {y:"1915", t:"Wynalezienie neonu – kolorowych, świecących rur, które do dziś rozświetlają nasze miasta.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Neon_lamp.jpg?width=300"}
     ],
     "01-20": [
-        {y:"1817", t:"W Warszawie powstała Giełda Kupiecka. Kupcy ustalali tam ceny towarów dla całego kraju.", img:"https://upload.wikimedia.org/wikipedia/commons/1/14/Gie%C5%82da_Warszawska_1828.jpg"}, 
-        {y:"1265", t:"Pierwszy parlament w Europie (Anglia). Ludzie zaczęli mieć wpływ na to, jak rządzi król.", img:"https://upload.wikimedia.org/wikipedia/commons/3/3b/Simon_de_Montfort_Parliament_memorial.jpg"}, 
-        {y:"1930", t:"Urodził się Buzz Aldrin, drugi człowiek w historii, który postawił stopę na Księżycu.", img:"https://upload.wikimedia.org/wikipedia/commons/d/dc/Buzz_Aldrin.jpg"}
+        {y:"1817", t:"W Warszawie powstała Giełda Kupiecka. Kupcy ustalali tam ceny towarów dla całego kraju.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Giełda_Warszawska_1828.jpg?width=300"}, 
+        {y:"1265", t:"Pierwszy parlament w Europie (Anglia). Ludzie zaczęli mieć wpływ na to, jak rządzi król.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Simon_de_Montfort_Parliament_memorial.jpg?width=300"}, 
+        {y:"1930", t:"Urodził się Buzz Aldrin, drugi człowiek w historii, który postawił stopę na Księżycu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Buzz_Aldrin.jpg?width=300"}
     ],
     "01-21": [
-        {y:"1892", t:"W Warszawie otwarto pierwsze w Polsce schronisko dla zwierząt. Ludzie zaczęli dbać o porzucone psy.", img:"https://upload.wikimedia.org/wikipedia/commons/5/53/Dog_shelter.jpg"}, 
-        {y:"1976", t:"Europejski samolot naddźwiękowy CONCORDE ruszył w pierwszy lot pasażerski. Latał szybciej niż dźwięk!", img:"https://upload.wikimedia.org/wikipedia/commons/7/77/Concorde_at_contact_sheet.jpg"}, 
-        {y:"1954", t:"Wodowanie Nautilusa – pierwszego na świecie okrętu podwodnego napędzanego bezpieczną energią atomową.", img:"https://upload.wikimedia.org/wikipedia/commons/8/82/USS_Nautilus_SSN-571.jpg"}
+        {y:"1892", t:"W Warszawie otwarto pierwsze w Polsce schronisko dla zwierząt. Ludzie zaczęli dbać o porzucone psy.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Dog_shelter.jpg?width=300"}, 
+        {y:"1976", t:"Europejski samolot naddźwiękowy CONCORDE ruszył w pierwszy lot pasażerski. Latał szybciej niż dźwięk!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Concorde_at_contact_sheet.jpg?width=300"}, 
+        {y:"1954", t:"Wodowanie Nautilusa – pierwszego na świecie okrętu podwodnego napędzanego bezpieczną energią atomową.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/USS_Nautilus_SSN-571.jpg?width=300"}
     ],
     "01-22": [
-        {y:"1863", t:"Wybuch Powstania Styczniowego w Polsce. Polacy dzielnie walczyli o wolność przeciwko Rosji.", img:"https://upload.wikimedia.org/wikipedia/commons/e/e0/Grottger_Bitwa.jpg"}, 
-        {y:"1775", t:"Urodził się André Ampère. To od jego nazwiska jednostka prądu nazywa się AMPER.", img:"https://upload.wikimedia.org/wikipedia/commons/c/c0/Ampere_Andre_Marie_trois_quarts.jpg"}, 
-        {y:"1922", t:"Z Nowego Jorku ruszył pierwszy w historii turystyczny rejs statkiem dookoła całego świata.", img:"https://upload.wikimedia.org/wikipedia/commons/8/84/RMS_Laconia_%281921%29.jpg"}
+        {y:"1863", t:"Wybuch Powstania Styczniowego w Polsce. Polacy dzielnie walczyli o wolność przeciwko Rosji.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Grottger_Bitwa.jpg?width=300"}, 
+        {y:"1775", t:"Urodził się André Ampère. To od jego nazwiska jednostka prądu nazywa się AMPER.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Ampere_Andre_Marie_trois_quarts.jpg?width=300"}, 
+        {y:"1922", t:"Z Nowego Jorku ruszył pierwszy w historii turystyczny rejs statkiem dookoła całego świata.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/RMS_Laconia_(1921).jpg?width=300"}
     ],
     "01-23": [
-        {y:"1932", t:"Urodził się Ryszard Kapuściński. Słynny polski reporter, który zwiedził i opisał cały świat.", img:"https://upload.wikimedia.org/wikipedia/commons/1/1e/Ryszard_Kapuscinski_2000.jpg"}, 
-        {y:"1960", t:"Jacques Piccard dotarł na dno Rowu Mariańskiego (11 km pod wodą!). Wytrzymał tam ogromne ciśnienie.", img:"https://upload.wikimedia.org/wikipedia/commons/1/16/Bathyscaphe_Trieste.jpg"}, 
-        {y:"1849", t:"Elizabeth Blackwell jako pierwsza kobieta w historii otrzymała dyplom lekarza.", img:"https://upload.wikimedia.org/wikipedia/commons/2/22/Elizabeth_Blackwell.jpg"}
+        {y:"1932", t:"Urodził się Ryszard Kapuściński. Słynny polski reporter, który zwiedził i opisał cały świat.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Ryszard_Kapuscinski_2000.jpg?width=300"}, 
+        {y:"1960", t:"Jacques Piccard dotarł na dno Rowu Mariańskiego (11 km pod wodą!). Wytrzymał tam ogromne ciśnienie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Bathyscaphe_Trieste.jpg?width=300"}, 
+        {y:"1849", t:"Elizabeth Blackwell jako pierwsza kobieta w historii otrzymała dyplom lekarza.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Elizabeth_Blackwell.jpg?width=300"}
     ],
     "01-26": [
-        {y:"1926", t:"Pierwszy pokaz telewizji. John Baird pokazał, jak przesyłać ruchomy obraz na odległość.", img:"https://upload.wikimedia.org/wikipedia/commons/1/10/John_Logie_Baird_1917.jpg"}, 
-        {y:"1905", t:"Odkryto Cullinan – największy diament świata. Ważył ponad pół kilograma!", img:"https://upload.wikimedia.org/wikipedia/commons/8/83/Cullinan_Diamond.jpg"}, 
-        {y:"1788", t:"Założono miasto Sydney w Australii.", img:"https://upload.wikimedia.org/wikipedia/commons/3/30/Sydney_Cove_Port_Jackson_1788.jpg"}
+        {y:"1926", t:"Pierwszy pokaz telewizji. John Baird pokazał, jak przesyłać ruchomy obraz na odległość.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/John_Logie_Baird_1917.jpg?width=300"}, 
+        {y:"1905", t:"Odkryto Cullinan – największy diament świata. Ważył ponad pół kilograma!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Cullinan_Diamond.jpg?width=300"}, 
+        {y:"1788", t:"Założono miasto Sydney w Australii.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Sydney_Cove_Port_Jackson_1788.jpg?width=300"}
     ],
     "01-27": [
-        {y:"1756", t:"Urodził się Wolfgang Amadeusz Mozart. Był muzycznym geniuszem, który pisał utwory już jako 5-latek!", img:"https://upload.wikimedia.org/wikipedia/commons/1/1e/Wolfgang-amadeus-mozart_1.jpg"}, 
-        {y:"1945", t:"Wyzwolenie obozu Auschwitz. Pamiętamy o ofiarach wojny na całym świecie.", img:"https://upload.wikimedia.org/wikipedia/commons/5/53/Auschwitz_I_Gate_Memo.jpg"}, 
-        {y:"2005", t:"Premiera gry World of Warcraft w Europie – to zmieniło świat gier komputerowych na lata.", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Gamescom_2015_-_Cosplay_-_World_of_Warcraft_%2820521876611%29.jpg/640px-Gamescom_2015_-_Cosplay_-_World_of_Warcraft_%2820521876611%29.jpg"}
+        {y:"1756", t:"Urodził się Wolfgang Amadeusz Mozart. Był muzycznym geniuszem, który pisał utwory już jako 5-latek!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Wolfgang-amadeus-mozart_1.jpg?width=300"}, 
+        {y:"1945", t:"Wyzwolenie obozu Auschwitz. Pamiętamy o ofiarach wojny na całym świecie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Auschwitz_I_Gate_Memo.jpg?width=300"}, 
+        {y:"2005", t:"Premiera gry World of Warcraft w Europie – to zmieniło świat gier komputerowych na lata.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Gamescom_2015_-_Cosplay_-_World_of_Warcraft_(20521876611).jpg?width=300"}
     ],
     "01-28": [
-        {y:"1958", t:"W Danii opatentowano klocki LEGO. Ich nazwa oznacza 'Baw się dobrze' (z duńskiego Leg Godt).", img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Lego_Brick_4x2.jpg/640px-Lego_Brick_4x2.jpg"}, 
-        {y:"1611", t:"Urodził się Jan Heweliusz z Gdańska. Jako pierwszy astronom stworzył dokładne mapy powierzchni Księżyca.", img:"https://upload.wikimedia.org/wikipedia/commons/c/ce/Johannes_Hevelius_by_Daniel_Schultz.jpg"}, 
-        {y:"1886", t:"Karl Benz patentuje pierwszy samochód. Jechał z prędkością 16 km/h – wolniej niż biegnący człowiek!", img:"https://upload.wikimedia.org/wikipedia/commons/0/07/Benz_Patent_Motorwagen_1886.jpg"}
+        {y:"1958", t:"W Danii opatentowano klocki LEGO. Ich nazwa oznacza 'Baw się dobrze' (z duńskiego Leg Godt).", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Lego_Brick_4x2.jpg?width=300"}, 
+        {y:"1611", t:"Urodził się Jan Heweliusz z Gdańska. Jako pierwszy astronom stworzył dokładne mapy powierzchni Księżyca.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Johannes_Hevelius_by_Daniel_Schultz.jpg?width=300"}, 
+        {y:"1886", t:"Karl Benz patentuje pierwszy samochód. Jechał z prędkością 16 km/h – wolniej niż biegnący człowiek!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Benz_Patent_Motorwagen_1886.jpg?width=300"}
     ],
     "01-29": [
-        {y:"1886", t:"Dzień narodzin nowoczesnej motoryzacji – pierwszy samochód z silnikiem wyjechał na drogi Europy.", img:"https://upload.wikimedia.org/wikipedia/commons/0/07/Benz_Patent_Motorwagen_1886.jpg"}, 
-        {y:"1962", t:"Urodziła się Olga Tokarczuk, polska pisarka, laureatka Nagrody Nobla.", img:"https://upload.wikimedia.org/wikipedia/commons/f/fb/Olga_Tokarczuk_2018.jpg"}, 
-        {y:"1887", t:"Ukazała się pierwsza opowieść o Sherlocku Holmesie – najsłynniejszym detektywie świata.", img:"https://upload.wikimedia.org/wikipedia/commons/c/cd/Sherlock_Holmes_Portrait_Paget.jpg"}
+        {y:"1886", t:"Dzień narodzin nowoczesnej motoryzacji – pierwszy samochód z silnikiem wyjechał na drogi Europy.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Benz_Patent_Motorwagen_1886.jpg?width=300"}, 
+        {y:"1962", t:"Urodziła się Olga Tokarczuk, polska pisarka, laureatka Nagrody Nobla.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Olga_Tokarczuk_2018.jpg?width=300"}, 
+        {y:"1887", t:"Ukazała się pierwsza opowieść o Sherlocku Holmesie – najsłynniejszym detektywie świata.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Sherlock_Holmes_Portrait_Paget.jpg?width=300"}
     ],
     "01-30": [
-        {y:"1995", t:"Marek Kamiński zdobył samotnie Biegun Północny. To pierwszy taki wyczyn Polaka w mroźnych lodach.", img:"https://upload.wikimedia.org/wikipedia/commons/7/7b/Marek_Kami%C5%84ski.jpg"}, 
-        {y:"1882", t:"Urodził się Franklin Roosevelt, prezydent, który pomógł światu wyjść z ogromnego kryzysu.", img:"https://upload.wikimedia.org/wikipedia/commons/4/42/FDR_1944_Color_Portrait.jpg"}, 
-        {y:"1933", t:"W radiu debiutuje Samotny Strażnik – bohater będący symbolem walki o sprawiedliwość.", img:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Lone_Ranger_Silver.jpg"}
+        {y:"1995", t:"Marek Kamiński zdobył samotnie Biegun Północny. To pierwszy taki wyczyn Polaka w mroźnych lodach.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Marek_Kamiński.jpg?width=300"}, 
+        {y:"1882", t:"Urodził się Franklin Roosevelt, prezydent, który pomógł światu wyjść z ogromnego kryzysu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/FDR_1944_Color_Portrait.jpg?width=300"}, 
+        {y:"1933", t:"W radiu debiutuje Samotny Strażnik – bohater będący symbolem walki o sprawiedliwość.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Lone_Ranger_Silver.jpg?width=300"}
     ],
 
     // LUTY 2026
     "02-02": [
-        {y:"1943", t:"Urodziła się Wanda Rutkiewicz. Jedna z najwybitniejszych himalaistek świata, zdobywczyni Mount Everestu.", img:"https://upload.wikimedia.org/wikipedia/commons/9/9c/Wanda_Rutkiewicz_1968.jpg"}, 
-        {y:"1924", t:"Pierwsza transmisja radiowa przez Ocean Atlantycki.", img:"https://upload.wikimedia.org/wikipedia/commons/1/1a/Wireless_Tower.jpg"}, 
-        {y:"1971", t:"Podpisano konwencję RAMSAR o ochronie mokradeł i ptaków na całym świecie.", img:"https://upload.wikimedia.org/wikipedia/commons/f/f9/Wetlands_wildlife.jpg"}
+        {y:"1943", t:"Urodziła się Wanda Rutkiewicz. Jedna z najwybitniejszych himalaistek świata, zdobywczyni Mount Everestu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Wanda_Rutkiewicz_1968.jpg?width=300"}, 
+        {y:"1924", t:"Pierwsza transmisja radiowa przez Ocean Atlantycki.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Wireless_Tower.jpg?width=300"}, 
+        {y:"1971", t:"Podpisano konwencję RAMSAR o ochronie mokradeł i ptaków na całym świecie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Wetlands_wildlife.jpg?width=300"}
     ],
     "02-03": [
-        {y:"1916", t:"Polak Jan Czochralski odkrył metodę tworzenia kryształów. Bez tego nie byłoby dzisiejszych smartfonów!", img:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Jan_Czochralski.jpg"}, 
-        {y:"1809", t:"Urodził się Felix Mendelssohn, wielki kompozytor. Napisał słynny 'Marsz Weselny'.", img:"https://upload.wikimedia.org/wikipedia/commons/8/87/Mendelssohn_Bartholdy.jpg"}, 
-        {y:"1966", t:"Sonda Luna 9 wykonała pierwsze 'miękkie' lądowanie na Księżycu.", img:"https://upload.wikimedia.org/wikipedia/commons/c/c5/Luna_9_camera.jpg"}
+        {y:"1916", t:"Polak Jan Czochralski odkrył metodę tworzenia kryształów. Bez tego nie byłoby dzisiejszych smartfonów!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Jan_Czochralski.jpg?width=300"}, 
+        {y:"1809", t:"Urodził się Felix Mendelssohn, wielki kompozytor. Napisał słynny 'Marsz Weselny'.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Mendelssohn_Bartholdy.jpg?width=300"}, 
+        {y:"1966", t:"Sonda Luna 9 wykonała pierwsze 'miękkie' lądowanie na Księżycu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Luna_9_camera.jpg?width=300"}
     ],
     "02-04": [
-        {y:"1746", t:"Urodził się Tadeusz Kościuszko. Wielki bohater Polski i Ameryki.", img:"https://upload.wikimedia.org/wikipedia/commons/0/01/Tadeusz_Kosciuszko.jpg"}, 
-        {y:"2004", t:"Narodziny Facebooka. Serwis, który miał służyć studentom, połączył miliardy ludzi.", img:"https://upload.wikimedia.org/wikipedia/commons/2/23/The_Facebook_login_2005.png"}, 
-        {y:"1748", t:"Otwarto Operalnię w Warszawie – pierwszy publiczny teatr operowy w Polsce.", img:"https://upload.wikimedia.org/wikipedia/commons/8/86/Operalnia_Saska.jpg"}
+        {y:"1746", t:"Urodził się Tadeusz Kościuszko. Wielki bohater Polski i Ameryki.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Tadeusz_Kosciuszko.jpg?width=300"}, 
+        {y:"2004", t:"Narodziny Facebooka. Serwis, który miał służyć studentom, połączył miliardy ludzi.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/The_Facebook_login_2005.png?width=300"}, 
+        {y:"1748", t:"Otwarto Operalnię w Warszawie – pierwszy publiczny teatr operowy w Polsce.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Operalnia_Saska.jpg?width=300"}
     ],
     "02-05": [
-        {y:"1928", t:"Powstanie Biblioteki Narodowej w Warszawie. Skarbnica polskiej literatury.", img:"https://upload.wikimedia.org/wikipedia/commons/1/16/Biblioteka_Narodowa_Warszawa.jpg"}, 
-        {y:"1953", t:"Disney wypuszcza film 'Piotruś Pan'. Bajka o wiecznym dziecku stała się hitem.", img:"https://upload.wikimedia.org/wikipedia/commons/f/ff/Peter_Pan_Statue_in_Kensington_Gardens.jpg"}, 
-        {y:"1870", t:"Pierwsza masowa produkcja gumy do żucia. Ludzie zaczęli żuć dla zabawy i oddechu.", img:"https://upload.wikimedia.org/wikipedia/commons/5/50/Bubble_Gum.jpg"}
+        {y:"1928", t:"Powstanie Biblioteki Narodowej w Warszawie. Skarbnica polskiej literatury.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Biblioteka_Narodowa_Warszawa.jpg?width=300"}, 
+        {y:"1953", t:"Disney wypuszcza film 'Piotruś Pan'. Bajka o wiecznym dziecku stała się hitem.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Peter_Pan_Statue_in_Kensington_Gardens.jpg?width=300"}, 
+        {y:"1870", t:"Pierwsza masowa produkcja gumy do żucia. Ludzie zaczęli żuć dla zabawy i oddechu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Bubble_Gum.jpg?width=300"}
     ],
     "02-06": [
-        {y:"1905", t:"W Zakopanem odbyły się pierwsze zawody w skokach narciarskich. Początek wielkiej pasji Polaków.", img:"https://upload.wikimedia.org/wikipedia/commons/4/4f/Skocznia_w_Jaworzynce.jpg"}, 
-        {y:"1935", t:"Opatentowano grę MONOPOLY. Najpopularniejsza gra planszowa świata.", img:"https://upload.wikimedia.org/wikipedia/commons/2/2d/Monopoly_game_board.jpg"}, 
-        {y:"1952", t:"Elżbieta II została królową Wielkiej Brytanii. Rządziła aż 70 lat!", img:"https://upload.wikimedia.org/wikipedia/commons/5/50/Queen_Elizabeth_II_March_2015.jpg"}
+        {y:"1905", t:"W Zakopanem odbyły się pierwsze zawody w skokach narciarskich. Początek wielkiej pasji Polaków.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Skocznia_w_Jaworzynce.jpg?width=300"}, 
+        {y:"1935", t:"Opatentowano grę MONOPOLY. Najpopularniejsza gra planszowa świata.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Monopoly_game_board.jpg?width=300"}, 
+        {y:"1952", t:"Elżbieta II została królową Wielkiej Brytanii. Rządziła aż 70 lat!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Queen_Elizabeth_II_March_2015.jpg?width=300"}
     ],
     "02-09": [
-        {y:"1969", t:"Pierwszy lot Boeinga 747 (Jumbo Jet). To był największy samolot pasażerski tamtych czasów.", img:"https://upload.wikimedia.org/wikipedia/commons/a/a2/Boeing_747_prototype.jpg"}, 
-        {y:"1894", t:"Firma Hershey's zaczęła produkować czekoladę w Europie i USA na wielką skalę.", img:"https://upload.wikimedia.org/wikipedia/commons/7/77/Hershey_bar.jpg"}, 
-        {y:"2000", t:"Premiera gry The Sims. Ludzie zaczęli opiekować się wirtualnymi postaciami.", img:"https://upload.wikimedia.org/wikipedia/commons/3/30/Sims_Cosplay.jpg"}
+        {y:"1969", t:"Pierwszy lot Boeinga 747 (Jumbo Jet). To był największy samolot pasażerski tamtych czasów.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Boeing_747_prototype.jpg?width=300"}, 
+        {y:"1894", t:"Firma Hershey's zaczęła produkować czekoladę w Europie i USA na wielką skalę.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Hershey_bar.jpg?width=300"}, 
+        {y:"2000", t:"Premiera gry The Sims. Ludzie zaczęli opiekować się wirtualnymi postaciami.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Sims_Cosplay.jpg?width=300"}
     ],
     "02-10": [
-        {y:"1920", t:"Zaślubiny Polski z Morzem. Generał Haller wrzucił pierścień do Bałtyku.", img:"https://upload.wikimedia.org/wikipedia/commons/8/86/Za%C5%9Blubiny_Polski_z_morzem_1920_Kossak.jpg"}, 
-        {y:"1926", t:"Gdynia otrzymała prawa miejskie. Z małej wioski stała się nowoczesnym portem.", img:"https://upload.wikimedia.org/wikipedia/commons/2/22/Port_Gdynia_1930.jpg"}, 
-        {y:"1940", t:"Tom i Jerry – premiera kreskówki. Walka kota i myszki bawi dzieci od 80 lat.", img:"https://upload.wikimedia.org/wikipedia/commons/8/8c/Cat_and_mouse.jpg"}
+        {y:"1920", t:"Zaślubiny Polski z Morzem. Generał Haller wrzucił pierścień do Bałtyku.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Zaślubiny_Polski_z_morzem_1920_Kossak.jpg?width=300"}, 
+        {y:"1926", t:"Gdynia otrzymała prawa miejskie. Z małej wioski stała się nowoczesnym portem.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Port_Gdynia_1930.jpg?width=300"}, 
+        {y:"1940", t:"Tom i Jerry – premiera kreskówki. Walka kota i myszki bawi dzieci od 80 lat.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Cat_and_mouse.jpg?width=300"}
     ],
     "02-11": [
-        {y:"1966", t:"Premiera komiksu Tytus, Romek i A’Tomek. Polskie dzieci pokochały przygody szympansa.", img:"https://upload.wikimedia.org/wikipedia/commons/a/a8/Papcio_Chmiel_Order_Usmiechu.jpg"}, 
-        {y:"1847", t:"Urodził się Thomas Edison. Wynalazca, który dał nam światło elektryczne.", img:"https://upload.wikimedia.org/wikipedia/commons/9/9d/Thomas_Edison2.jpg"}, 
-        {y:"2016", t:"Potwierdzono fale grawitacyjne – przestrzeń kosmiczna faluje jak woda!", img:"https://upload.wikimedia.org/wikipedia/commons/d/db/LIGO_gravitational_waves_plot.png"}
+        {y:"1966", t:"Premiera komiksu Tytus, Romek i A’Tomek. Polskie dzieci pokochały przygody szympansa.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Papcio_Chmiel_Order_Usmiechu.jpg?width=300"}, 
+        {y:"1847", t:"Urodził się Thomas Edison. Wynalazca, który dał nam światło elektryczne.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Thomas_Edison2.jpg?width=300"}, 
+        {y:"2016", t:"Potwierdzono fale grawitacyjne – przestrzeń kosmiczna faluje jak woda!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/LIGO_gravitational_waves_plot.png?width=300"}
     ],
     "02-12": [
-        {y:"1918", t:"Powstało Polskie Towarzystwo Geograficzne. Naukowcy zaczęli badać ziemie odrodzonej Polski.", img:"https://upload.wikimedia.org/wikipedia/commons/f/f8/Mapa_Polski_1920.jpg"}, 
-        {y:"1809", t:"Urodził się Karol Darwin. Dzięki niemu wiemy, jak zmieniają się zwierzęta i ludzie.", img:"https://upload.wikimedia.org/wikipedia/commons/3/3c/Charles_Darwin_01.jpg"}, 
-        {y:"1922", t:"Premiera filmu 3D. Obraz wydawał się wychodzić prosto z ekranu.", img:"https://upload.wikimedia.org/wikipedia/commons/7/70/Anaglyph_glasses.png"}
+        {y:"1918", t:"Powstało Polskie Towarzystwo Geograficzne. Naukowcy zaczęli badać ziemie odrodzonej Polski.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Mapa_Polski_1920.jpg?width=300"}, 
+        {y:"1809", t:"Urodził się Karol Darwin. Dzięki niemu wiemy, jak zmieniają się zwierzęta i ludzie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Charles_Darwin_01.jpg?width=300"}, 
+        {y:"1922", t:"Premiera filmu 3D. Obraz wydawał się wychodzić prosto z ekranu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Anaglyph_glasses.png?width=300"}
     ],
     "02-13": [
-        {y:"ŚW.", t:"Dzień Radia. Święto urządzenia, które pozwala słuchać piosenek na ogromne odległości.", img:"https://upload.wikimedia.org/wikipedia/commons/6/69/Old_radio.jpg"}, 
-        {y:"1903", t:"Urodził się Georges Simenon. Stworzył postać komisarza Maigret.", img:"https://upload.wikimedia.org/wikipedia/commons/8/8f/Georges_Simenon_1965.jpg"}, 
-        {y:"1923", t:"Pierwszy koncert JAZZOWY w Polsce. Modne rytmy podbiły Warszawę.", img:"https://upload.wikimedia.org/wikipedia/commons/0/0e/Jazz_Band_1920s.jpg"}
+        {y:"ŚW.", t:"Dzień Radia. Święto urządzenia, które pozwala słuchać piosenek na ogromne odległości.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Old_radio.jpg?width=300"}, 
+        {y:"1903", t:"Urodził się Georges Simenon. Stworzył postać komisarza Maigret.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Georges_Simenon_1965.jpg?width=300"}, 
+        {y:"1923", t:"Pierwszy koncert JAZZOWY w Polsce. Modne rytmy podbiły Warszawę.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Jazz_Band_1920s.jpg?width=300"}
     ],
     "02-16": [
-        {y:"1908", t:"W Warszawie ruszyła pierwsza linia tramwaju elektrycznego. To była wielka nowość!", img:"https://upload.wikimedia.org/wikipedia/commons/1/1e/Tramwaj_elektryczny_Warszawa_1908.jpg"}, 
-        {y:"1923", t:"Otwarto grobowiec Tutenchamona. Znaleziono tam tysiące złotych skarbów.", img:"https://upload.wikimedia.org/wikipedia/commons/3/38/Tutanchamun_Maske.jpg"}, 
-        {y:"1924", t:"Pierwszy lot modelu helikoptera (śmigłowca) w Europie.", img:"https://upload.wikimedia.org/wikipedia/commons/4/4c/Pescara_2F.jpg"}
+        {y:"1908", t:"W Warszawie ruszyła pierwsza linia tramwaju elektrycznego. To była wielka nowość!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Tramwaj_elektryczny_Warszawa_1908.jpg?width=300"}, 
+        {y:"1923", t:"Otwarto grobowiec Tutenchamona. Znaleziono tam tysiące złotych skarbów.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Tutanchamun_Maske.jpg?width=300"}, 
+        {y:"1924", t:"Pierwszy lot modelu helikoptera (śmigłowca) w Europie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Pescara_2F.jpg?width=300"}
     ],
     "02-17": [
-        {y:"1980", t:"Polacy Wielicki i Cichy jako pierwsi zdobyli Mount Everest zimą! To był rekord świata.", img:"https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_West.jpg"}, 
-        {y:"1933", t:"Wyszło pierwsze wydanie Newsweeka. Gazeta opisuje najważniejsze losy świata.", img:"https://upload.wikimedia.org/wikipedia/commons/a/ad/Newsstand_New_York_1935.jpg"}, 
-        {y:"ŚW.", t:"Europejski Dzień Kota. Świętujemy obecność naszych mruczących przyjaciół.", img:"https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg"}
+        {y:"1980", t:"Polacy Wielicki i Cichy jako pierwsi zdobyli Mount Everest zimą! To był rekord świata.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Everest_North_Face_toward_West.jpg?width=300"}, 
+        {y:"1933", t:"Wyszło pierwsze wydanie Newsweeka. Gazeta opisuje najważniejsze losy świata.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Newsstand_New_York_1935.jpg?width=300"}, 
+        {y:"ŚW.", t:"Europejski Dzień Kota. Świętujemy obecność naszych mruczących przyjaciół.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Cat03.jpg?width=300"}
     ],
     "02-18": [
-        {y:"1919", t:"Powstał Polski Związek Lekkiej Atletyki. Polscy sportowcy zaczęli biegać i skakać na zawodach.", img:"https://upload.wikimedia.org/wikipedia/commons/6/66/Janusz_Kusoci%C5%84ski_1932.jpg"}, 
-        {y:"1930", t:"Odkrycie PLUTONA. Przez lata uważany za planetę, dziś za planetę karłowatą.", img:"https://upload.wikimedia.org/wikipedia/commons/e/ef/Pluto_in_True_Color_-_High_Res.jpg"}, 
-        {y:"2021", t:"Łazik Perseverance wylądował na Marsie, by szukać tam śladów życia.", img:"https://upload.wikimedia.org/wikipedia/commons/a/a2/Perseverance_Landing.jpg"}
+        {y:"1919", t:"Powstał Polski Związek Lekkiej Atletyki. Polscy sportowcy zaczęli biegać i skakać na zawodach.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Janusz_Kusociński_1932.jpg?width=300"}, 
+        {y:"1930", t:"Odkrycie PLUTONA. Przez lata uważany za planetę, dziś za planetę karłowatą.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Pluto_in_True_Color_-_High_Res.jpg?width=300"}, 
+        {y:"2021", t:"Łazik Perseverance wylądował na Marsie, by szukać tam śladów życia.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Perseverance_Landing.jpg?width=300"}
     ],
     "02-19": [
-        {y:"1473", t:"Urodziny Kopernika w Toruniu. Polak udowodnił, że to Ziemia krąży wokół Słońca.", img:"https://upload.wikimedia.org/wikipedia/commons/f/f2/Nikolaus_Kopernikus.jpg"}, 
-        {y:"1878", t:"Edison patentuje fonograf – pierwsze urządzenie do nagrywania piosenek.", img:"https://upload.wikimedia.org/wikipedia/commons/2/27/Edison_Phonograph.jpg"}, 
-        {y:"1990", t:"Premiera programu Photoshop. Od tego dnia można zmieniać zdjęcia na komputerze.", img:"https://upload.wikimedia.org/wikipedia/commons/8/87/Computer_Workstation_1990s.jpg"}
+        {y:"1473", t:"Urodziny Kopernika w Toruniu. Polak udowodnił, że to Ziemia krąży wokół Słońca.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Nikolaus_Kopernikus.jpg?width=300"}, 
+        {y:"1878", t:"Edison patentuje fonograf – pierwsze urządzenie do nagrywania piosenek.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Edison_Phonograph.jpg?width=300"}, 
+        {y:"1990", t:"Premiera programu Photoshop. Od tego dnia można zmieniać zdjęcia na komputerze.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Computer_Workstation_1990s.jpg?width=300"}
     ],
     "02-20": [
-        {y:"1862", t:"Powstanie Muzeum Narodowego w Warszawie. Największy skarbiec polskiej sztuki.", img:"https://upload.wikimedia.org/wikipedia/commons/4/4b/Muzeum_Narodowe_w_Warszawie_1.jpg"}, 
-        {y:"1962", t:"John Glenn pierwszym Amerykaninem na orbicie. Okrążył Ziemię w małej kapsule.", img:"https://upload.wikimedia.org/wikipedia/commons/a/ad/John_Glenn_1962.jpg"}, 
-        {y:"1998", t:"Premiera gry StarCraft. Legenda strategii komputerowych i e-sportu.", img:"https://upload.wikimedia.org/wikipedia/commons/2/2a/Esports_tournament.jpg"}
+        {y:"1862", t:"Powstanie Muzeum Narodowego w Warszawie. Największy skarbiec polskiej sztuki.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Muzeum_Narodowe_w_Warszawie_1.jpg?width=300"}, 
+        {y:"1962", t:"John Glenn pierwszym Amerykaninem na orbicie. Okrążył Ziemię w małej kapsule.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/John_Glenn_1962.jpg?width=300"}, 
+        {y:"1998", t:"Premiera gry StarCraft. Legenda strategii komputerowych i e-sportu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Esports_tournament.jpg?width=300"}
     ],
     "02-23": [
-        {y:"2004", t:"Gra Painkiller z Polski odniosła światowy sukces. Polska stała się ważnym miejscem dla graczy.", img:"https://upload.wikimedia.org/wikipedia/commons/f/f9/Video_game_controller_icon.png"}, 
-        {y:"1455", t:"Gutenberg kończy druk pierwszej Biblii. Początek ery książek dla każdego.", img:"https://upload.wikimedia.org/wikipedia/commons/2/2d/Gutenberg_Bible_B42_Genesis.jpg"}, 
-        {y:"1893", t:"Rudolf Diesel opatentował swój silnik, używany dziś w ciężarówkach.", img:"https://upload.wikimedia.org/wikipedia/commons/5/53/Diesel_motor.jpg"}
+        {y:"2004", t:"Gra Painkiller z Polski odniosła światowy sukces. Polska stała się ważnym miejscem dla graczy.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Video_game_controller_icon.png?width=300"}, 
+        {y:"1455", t:"Gutenberg kończy druk pierwszej Biblii. Początek ery książek dla każdego.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Gutenberg_Bible_B42_Genesis.jpg?width=300"}, 
+        {y:"1893", t:"Rudolf Diesel opatentował swój silnik, używany dziś w ciężarówkach.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Diesel_motor.jpg?width=300"}
     ],
     "02-24": [
-        {y:"1896", t:"Pierwszy pokaz filmu w Warszawie. Polacy zobaczyli 'żywe zdjęcia' braci Lumiere.", img:"https://upload.wikimedia.org/wikipedia/commons/4/41/Lumiere_Cinématographe.jpg"}, 
-        {y:"1955", t:"Urodził się Steve Jobs, twórca iPhone'a i wielkiej potęgi firmy Apple.", img:"https://upload.wikimedia.org/wikipedia/commons/f/f5/Steve_Jobs_Headshot_2010-CROP2.jpg"}, 
-        {y:"1582", t:"Wprowadzono kalendarz gregoriański, którego używamy do dzisiaj w szkole.", img:"https://upload.wikimedia.org/wikipedia/commons/5/52/Gregorian_calendar_1582.jpg"}
+        {y:"1896", t:"Pierwszy pokaz filmu w Warszawie. Polacy zobaczyli 'żywe zdjęcia' braci Lumiere.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Lumiere_Cinématographe.jpg?width=300"}, 
+        {y:"1955", t:"Urodził się Steve Jobs, twórca iPhone'a i wielkiej potęgi firmy Apple.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Steve_Jobs_Headshot_2010-CROP2.jpg?width=300"}, 
+        {y:"1582", t:"Wprowadzono kalendarz gregoriański, którego używamy do dzisiaj w szkole.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Gregorian_calendar_1582.jpg?width=300"}
     ],
     "02-25": [
-        {y:"1936", t:"Urodziła się Anna German. Polska piosenkarka o anielskim głosie, znana w całej Europie.", img:"https://upload.wikimedia.org/wikipedia/commons/c/c1/Anna_German_1978.jpg"}, 
-        {y:"1836", t:"Opatentowano rewolwer Colta – nową broń, która zmieniła historię Dzikiego Zachodu.", img:"https://upload.wikimedia.org/wikipedia/commons/0/07/Colt_Paterson.jpg"}, 
-        {y:"1950", t:"Powstała Unia Nadawców EBU – to oni organizują co roku konkurs Eurowizji.", img:"https://upload.wikimedia.org/wikipedia/commons/9/96/Eurovision_Song_Contest_logo.png"}
+        {y:"1936", t:"Urodziła się Anna German. Polska piosenkarka o anielskim głosie, znana w całej Europie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Anna_German_1978.jpg?width=300"}, 
+        {y:"1836", t:"Opatentowano rewolwer Colta – nową broń, która zmieniła historię Dzikiego Zachodu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Colt_Paterson.jpg?width=300"}, 
+        {y:"1950", t:"Powstała Unia Nadawców EBU – to oni organizują co roku konkurs Eurowizji.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Eurovision_Song_Contest_logo.png?width=300"}
     ],
     "02-26": [
-        {y:"1927", t:"Mazurek Dąbrowskiego hymnem Polski. Ta pieśń dawała nam siłę w trudnych chwilach.", img:"https://upload.wikimedia.org/wikipedia/commons/2/22/Pie%C5%9B%C5%84_Legion%C3%B3w_1.jpg"}, 
-        {y:"1896", t:"Henri Becquerel odkrył promieniotwórczość. Otrzymał za to Nagrodę Nobla.", img:"https://upload.wikimedia.org/wikipedia/commons/c/ca/Henri_Becquerel.jpg"}, 
-        {y:"1952", t:"Wielka Brytania ogłosiła posiadanie własnej bomby atomowej.", img:"https://upload.wikimedia.org/wikipedia/commons/1/1f/Nuclear_explosion.jpg"}
+        {y:"1927", t:"Mazurek Dąbrowskiego hymnem Polski. Ta pieśń dawała nam siłę w trudnych chwilach.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Pieśń_Legionów_1.jpg?width=300"}, 
+        {y:"1896", t:"Henri Becquerel odkrył promieniotwórczość. Otrzymał za to Nagrodę Nobla.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Henri_Becquerel.jpg?width=300"}, 
+        {y:"1952", t:"Wielka Brytania ogłosiła posiadanie własnej bomby atomowej.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Nuclear_explosion.jpg?width=300"}
     ],
     "02-27": [
-        {y:"1897", t:"Urodził się Kazimierz Nowak. Jako pierwszy człowiek na świecie przejechał Afrykę na rowerze!", img:"https://upload.wikimedia.org/wikipedia/commons/b/b2/Kazimierz_Nowak_Africa.jpg"}, 
-        {y:"1937", t:"W Anglii odbyła się pierwsza transmisja meczu piłki nożnej w telewizji.", img:"https://upload.wikimedia.org/wikipedia/commons/a/a2/Football_camera_1930s.jpg"}, 
-        {y:"1932", t:"Odkrycie NEUTRONU – małej części atomu. Naukowcy zrozumieli budowę materii.", img:"https://upload.wikimedia.org/wikipedia/commons/6/65/Chadwick_James.jpg"}
+        {y:"1897", t:"Urodził się Kazimierz Nowak. Jako pierwszy człowiek na świecie przejechał Afrykę na rowerze!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Kazimierz_Nowak_Africa.jpg?width=300"}, 
+        {y:"1937", t:"W Anglii odbyła się pierwsza transmisja meczu piłki nożnej w telewizji.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Football_camera_1930s.jpg?width=300"}, 
+        {y:"1932", t:"Odkrycie NEUTRONU – małej części atomu. Naukowcy zrozumieli budowę materii.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Chadwick_James.jpg?width=300"}
     ],
 
     // MARZEC 2026
     "03-02": [
-        {y:"1969", t:"Lot samolotu CONCORDE. Ten naddźwiękowy ptak latał z Europy do USA szybciej niż dźwięk!", img:"https://upload.wikimedia.org/wikipedia/commons/2/22/Concorde_takeoff.jpg"}, 
-        {y:"1972", t:"Sonda Pioneer 10 ruszyła w stronę Jowisza. Niosła wiadomość od Ziemian.", img:"https://upload.wikimedia.org/wikipedia/commons/7/77/Pioneer_10_spacecraft.jpg"}, 
-        {y:"1923", t:"Otwarto komorę grobową Tutenchamona w Egipcie.", img:"https://upload.wikimedia.org/wikipedia/commons/7/7b/Tutanchamun_sarcophagus.jpg"}
+        {y:"1969", t:"Lot samolotu CONCORDE. Ten naddźwiękowy ptak latał z Europy do USA szybciej niż dźwięk!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Concorde_takeoff.jpg?width=300"}, 
+        {y:"1972", t:"Sonda Pioneer 10 ruszyła w stronę Jowisza. Niosła wiadomość od Ziemian.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Pioneer_10_spacecraft.jpg?width=300"}, 
+        {y:"1923", t:"Otwarto komorę grobową Tutenchamona w Egipcie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Tutanchamun_sarcophagus.jpg?width=300"}
     ],
     "03-03": [
-        {y:"1847", t:"Urodził się Alexander Graham Bell, wynalazca telefonu. Połączył ludzi na odległość.", img:"https://upload.wikimedia.org/wikipedia/commons/1/10/Alexander_Graham_Bell.jpg"}, 
-        {y:"1989", t:"Premiera gry Tetris na konsolę Game Boy. Podbiła serca dzieci na całym świecie.", img:"https://upload.wikimedia.org/wikipedia/commons/b/b9/Game_Boy_FL.jpg"}, 
-        {y:"1969", t:"Start misji Apollo 9. Testowano lądownik przed lądowaniem ludzi na Księżycu.", img:"https://upload.wikimedia.org/wikipedia/commons/1/14/Apollo_9_Spider.jpg"}
+        {y:"1847", t:"Urodził się Alexander Graham Bell, wynalazca telefonu. Połączył ludzi na odległość.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Alexander_Graham_Bell.jpg?width=300"}, 
+        {y:"1989", t:"Premiera gry Tetris na konsolę Game Boy. Podbiła serca dzieci na całym świecie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Game_Boy_FL.jpg?width=300"}, 
+        {y:"1969", t:"Start misji Apollo 9. Testowano lądownik przed lądowaniem ludzi na Księżycu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Apollo_9_Spider.jpg?width=300"}
     ],
     "03-04": [
-        {y:"1880", t:"W gazecie wydrukowano pierwsze w historii zdjęcie. Gazety stały się o wiele ciekawsze!", img:"https://upload.wikimedia.org/wikipedia/commons/5/5e/Newspaper_printing_press.jpg"}, 
-        {y:"1745", t:"Urodził się Kazimierz Pułaski, polski bohater narodowy walczący o wolność.", img:"https://upload.wikimedia.org/wikipedia/commons/7/7e/Kazimierz_Pulaski_1.jpg"}, 
-        {y:"1936", t:"Pierwszy lot myśliwca Spitfire. Ten samolot bronił wolnej Europy podczas wojny.", img:"https://upload.wikimedia.org/wikipedia/commons/8/82/Spitfire_flight.jpg"}
+        {y:"1880", t:"W gazecie wydrukowano pierwsze w historii zdjęcie. Gazety stały się o wiele ciekawsze!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Newspaper_printing_press.jpg?width=300"}, 
+        {y:"1745", t:"Urodził się Kazimierz Pułaski, polski bohater narodowy walczący o wolność.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Kazimierz_Pulaski_1.jpg?width=300"}, 
+        {y:"1936", t:"Pierwszy lot myśliwca Spitfire. Ten samolot bronił wolnej Europy podczas wojny.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Spitfire_flight.jpg?width=300"}
     ],
     "03-05": [
-        {y:"1979", t:"Sonda Voyager minęła Jowisza. Zrobiła zdjęcia planety i jej dziwnych księżyców.", img:"https://upload.wikimedia.org/wikipedia/commons/b/b5/Voyager_1_Jupiter_flyby.jpg"}, 
-        {y:"1817", t:"Otwarto Giełdę w Warszawie, by rozwijać polski handel i gospodarkę.", img:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Old_Warsaw_Stock_Exchange.jpg"}, 
-        {y:"1475", t:"Urodził się Michał Anioł. Genialny rzeźbiarz, malarz i architekt renesansu.", img:"https://upload.wikimedia.org/wikipedia/commons/5/5e/Michelangelo_Daniele_da_Volterra_%28detail%29.jpg"}
+        {y:"1979", t:"Sonda Voyager minęła Jowisza. Zrobiła zdjęcia planety i jej dziwnych księżyców.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Voyager_1_Jupiter_flyby.jpg?width=300"}, 
+        {y:"1817", t:"Otwarto Giełdę w Warszawie, by rozwijać polski handel i gospodarkę.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Old_Warsaw_Stock_Exchange.jpg?width=300"}, 
+        {y:"1475", t:"Urodził się Michał Anioł. Genialny rzeźbiarz, malarz i architekt renesansu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo_Daniele_da_Volterra_(detail).jpg?width=300"}
     ],
     "03-06": [
-        {y:"1899", t:"Opatentowano ASPIRYNĘ – lek na gorączkę i ból używany do dziś na całym świecie.", img:"https://upload.wikimedia.org/wikipedia/commons/e/e0/Aspirin_Bayer_bottle.jpg"}, 
-        {y:"1851", t:"Karol Wedel otworzył w Warszawie swoją pierwszą cukiernię. Początek pysznych słodyczy.", img:"https://upload.wikimedia.org/wikipedia/commons/1/1d/Wedel_Warszawa_sklep.jpg"}, 
-        {y:"1921", t:"W Polsce odbyły się pierwsze zawody w hokeju na lodzie.", img:"https://upload.wikimedia.org/wikipedia/commons/0/05/Ice_hockey_1920s.jpg"}
+        {y:"1899", t:"Opatentowano ASPIRYNĘ – lek na gorączkę i ból używany do dziś na całym świecie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Aspirin_Bayer_bottle.jpg?width=300"}, 
+        {y:"1851", t:"Karol Wedel otworzył w Warszawie swoją pierwszą cukiernię. Początek pysznych słodyczy.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Wedel_Warszawa_sklep.jpg?width=300"}, 
+        {y:"1921", t:"W Polsce odbyły się pierwsze zawody w hokeju na lodzie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Ice_hockey_1920s.jpg?width=300"}
     ],
     "03-09": [
-        {y:"1959", t:"Lalka BARBIE zadebiutowała na targach w Nowym Jorku. Stała się najsłynniejszą zabawką świata.", img:"https://upload.wikimedia.org/wikipedia/commons/0/0b/Barbie_doll.jpg"}, 
-        {y:"1934", t:"Urodził się Jurij Gagarin – pierwszy człowiek, który poleciał w kosmos.", img:"https://upload.wikimedia.org/wikipedia/commons/c/cc/Yuri_Gagarin.jpg"}, 
-        {y:"1927", t:"Polski statek handlowy 'SS Poznań' wszedł do nowo budowanego portu w Gdyni.", img:"https://upload.wikimedia.org/wikipedia/commons/8/8d/SS_Poznan.jpg"}
+        {y:"1959", t:"Lalka BARBIE zadebiutowała na targach w Nowym Jorku. Stała się najsłynniejszą zabawką świata.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Barbie_doll.jpg?width=300"}, 
+        {y:"1934", t:"Urodził się Jurij Gagarin – pierwszy człowiek, który poleciał w kosmos.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Yuri_Gagarin.jpg?width=300"}, 
+        {y:"1927", t:"Polski statek handlowy 'SS Poznań' wszedł do nowo budowanego portu w Gdyni.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/SS_Poznan.jpg?width=300"}
     ],
     "03-10": [
-        {y:"1876", t:"Pierwsza rozmowa telefoniczna: 'Panie Watson, proszę tu przyjść, potrzebuję pana!'.", img:"https://upload.wikimedia.org/wikipedia/commons/a/ad/Alexander_Graham_Bell_telephone_prototype.jpg"}, 
-        {y:"1948", t:"Urodził się Jerzy Kukuczka, polski król wysokich gór. Zdobył Koronę Himalajów.", img:"https://upload.wikimedia.org/wikipedia/commons/8/87/Jerzy_Kukuczka_1988.jpg"}, 
-        {y:"1977", t:"Odkryto pierścienie wokół planety URAN. Okazało się, że nie tylko Saturn je posiada!", img:"https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg"}
+        {y:"1876", t:"Pierwsza rozmowa telefoniczna: 'Panie Watson, proszę tu przyjść, potrzebuję pana!'.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Alexander_Graham_Bell_telephone_prototype.jpg?width=300"}, 
+        {y:"1948", t:"Urodził się Jerzy Kukuczka, polski król wysokich gór. Zdobył Koronę Himalajów.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Jerzy_Kukuczka_1988.jpg?width=300"}, 
+        {y:"1977", t:"Odkryto pierścienie wokół planety URAN. Okazało się, że nie tylko Saturn je posiada!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Uranus2.jpg?width=300"}
     ],
     "03-11": [
-        {y:"1992", t:"Premiera Super Mario World w Europie. Sympatyczny hydraulik Mario został idolem dzieci.", img:"https://upload.wikimedia.org/wikipedia/commons/f/fa/Nintendo-Super-Famicom-Set-FL.jpg"}, 
-        {y:"1969", t:"Urodził się Jan Kulig, jeden z najszybszych i najlepszych kierowców rajdowych w PL.", img:"https://upload.wikimedia.org/wikipedia/commons/0/08/Rally_car_generic.jpg"}, 
-        {y:"1853", t:"Otwarto pierwsze oceanarium w Londynie. Ludzie zobaczyli egzotyczne ryby za szybą.", img:"https://upload.wikimedia.org/wikipedia/commons/5/52/London_Zoo_Aquarium.jpg"}
+        {y:"1992", t:"Premiera Super Mario World w Europie. Sympatyczny hydraulik Mario został idolem dzieci.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo-Super-Famicom-Set-FL.jpg?width=300"}, 
+        {y:"1969", t:"Urodził się Jan Kulig, jeden z najszybszych i najlepszych kierowców rajdowych w PL.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Rally_car_generic.jpg?width=300"}, 
+        {y:"1853", t:"Otwarto pierwsze oceanarium w Londynie. Ludzie zobaczyli egzotyczne ryby za szybą.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/London_Zoo_Aquarium.jpg?width=300"}
     ],
     "03-12": [
-        {y:"1989", t:"Tim Berners-Lee zaproponował system WWW. Tak narodziły się współczesne strony internetowe.", img:"https://upload.wikimedia.org/wikipedia/commons/d/d1/First_Web_Server.jpg"}, 
-        {y:"1999", t:"Polska dołączyła do NATO – sojuszu dbającego o nasze bezpieczeństwo.", img:"https://upload.wikimedia.org/wikipedia/commons/3/37/NATO_flag.svg"}, 
-        {y:"1833", t:"Opatentowano automat do napojów. Wrzucałeś monetę i dostawałeś picie!", img:"https://upload.wikimedia.org/wikipedia/commons/a/a9/Old_Vending_Machine.jpg"}
+        {y:"1989", t:"Tim Berners-Lee zaproponował system WWW. Tak narodziły się współczesne strony internetowe.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/First_Web_Server.jpg?width=300"}, 
+        {y:"1999", t:"Polska dołączyła do NATO – sojuszu dbającego o nasze bezpieczeństwo.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/NATO_flag.svg?width=300"}, 
+        {y:"1833", t:"Opatentowano automat do napojów. Wrzucałeś monetę i dostawałeś picie!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Old_Vending_Machine.jpg?width=300"}
     ],
     "03-13": [
-        {y:"1781", t:"William Herschel odkrył planetę URAN. Nasz Układ Słoneczny stał się większy.", img:"https://upload.wikimedia.org/wikipedia/commons/6/69/William_Herschel_by_Lemuel_Francis_Abbott.jpg"}, 
-        {y:"1915", t:"Pierwszy raz sfotografowano Plutona, ale nikt go wtedy nie rozpoznał jako planetę.", img:"https://upload.wikimedia.org/wikipedia/commons/9/91/Pluto_Lowell_Observatory.jpg"}, 
-        {y:"1919", t:"Powstał Polski Związek Narciarski – organizacja dbająca o sporty zimowe w Polsce.", img:"https://upload.wikimedia.org/wikipedia/commons/8/80/Skiers_1920s.jpg"}
+        {y:"1781", t:"William Herschel odkrył planetę URAN. Nasz Układ Słoneczny stał się większy.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/William_Herschel_by_Lemuel_Francis_Abbott.jpg?width=300"}, 
+        {y:"1915", t:"Pierwszy raz sfotografowano Plutona, ale nikt go wtedy nie rozpoznał jako planetę.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Pluto_Lowell_Observatory.jpg?width=300"}, 
+        {y:"1919", t:"Powstał Polski Związek Narciarski – organizacja dbająca o sporty zimowe w Polsce.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Skiers_1920s.jpg?width=300"}
     ],
     "03-16": [
-        {y:"1926", t:"Robert Goddard wystrzelił pierwszą rakietę na paliwo płynne. Początek ery lotów kosmicznych.", img:"https://upload.wikimedia.org/wikipedia/commons/0/03/Goddard_with_rocket.jpg"}, 
-        {y:"1966", t:"Pierwsze dokowanie dwóch pojazdów w kosmosie. Misja Gemini 8 z Neilem Armstrongiem.", img:"https://upload.wikimedia.org/wikipedia/commons/0/09/Gemini_8_Agena.jpg"}, 
-        {y:"1922", t:"Urodziła się Monika Warneńska, polska podróżniczka i pisarka opisująca Azję.", img:"https://upload.wikimedia.org/wikipedia/commons/3/35/Map_of_Asia_old.jpg"}
+        {y:"1926", t:"Robert Goddard wystrzelił pierwszą rakietę na paliwo płynne. Początek ery lotów kosmicznych.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Goddard_with_rocket.jpg?width=300"}, 
+        {y:"1966", t:"Pierwsze dokowanie dwóch pojazdów w kosmosie. Misja Gemini 8 z Neilem Armstrongiem.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Gemini_8_Agena.jpg?width=300"}, 
+        {y:"1922", t:"Urodziła się Monika Warneńska, polska podróżniczka i pisarka opisująca Azję.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Map_of_Asia_old.jpg?width=300"}
     ],
     "03-17": [
-        {y:"1834", t:"Urodził się Gottlieb Daimler, pionier budowy samochodów z silnikiem.", img:"https://upload.wikimedia.org/wikipedia/commons/3/30/Gottlieb_Daimler.jpg"}, 
-        {y:"1852", t:"Odkrycie asteroidy PSYCHE złożonej prawie w całości z rzadkich metali.", img:"https://upload.wikimedia.org/wikipedia/commons/f/f6/16_Psyche_computer_model.jpg"}, 
-        {y:"1929", t:"Pierwszy lot samolotu pasażerskiego polskiej linii PLL LOT.", img:"https://upload.wikimedia.org/wikipedia/commons/1/1f/Junkers_F.13.jpg"}
+        {y:"1834", t:"Urodził się Gottlieb Daimler, pionier budowy samochodów z silnikiem.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Gottlieb_Daimler.jpg?width=300"}, 
+        {y:"1852", t:"Odkrycie asteroidy PSYCHE złożonej prawie w całości z rzadkich metali.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/16_Psyche_computer_model.jpg?width=300"}, 
+        {y:"1929", t:"Pierwszy lot samolotu pasażerskiego polskiej linii PLL LOT.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Junkers_F.13.jpg?width=300"}
     ],
     "03-18": [
-        {y:"1965", t:"Spacer w kosmosie Aleksieja Leonowa. Unosił się swobodnie w próżni kosmicznej!", img:"https://upload.wikimedia.org/wikipedia/commons/1/1e/Alexey_Leonov_Voskhod_2.jpg"}, 
-        {y:"1858", t:"Urodził się Rudolf Diesel. Wynalazł silnik napędzający dziś ciężarówki i statki.", img:"https://upload.wikimedia.org/wikipedia/commons/7/77/Rudolf_Diesel.jpg"}, 
-        {y:"1894", t:"Pierwszy wyścig aut w Paryżu. Pędziły z zawrotną prędkością 20 km/h.", img:"https://upload.wikimedia.org/wikipedia/commons/7/7b/Paris_Rouen_1894_De_Dion.jpg"}
+        {y:"1965", t:"Spacer w kosmosie Aleksieja Leonowa. Unosił się swobodnie w próżni kosmicznej!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Alexey_Leonov_Voskhod_2.jpg?width=300"}, 
+        {y:"1858", t:"Urodził się Rudolf Diesel. Wynalazł silnik napędzający dziś ciężarówki i statki.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Rudolf_Diesel.jpg?width=300"}, 
+        {y:"1894", t:"Pierwszy wyścig aut w Paryżu. Pędziły z zawrotną prędkością 20 km/h.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Paris_Rouen_1894_De_Dion.jpg?width=300"}
     ],
     "03-19": [
-        {y:"1895", t:"Bracia Lumière pokazali swój pierwszy film. To oficjalne narodziny kina na świecie.", img:"https://upload.wikimedia.org/wikipedia/commons/b/b3/Fr%C3%A8res_Lumi%C3%A8re.jpg"}, 
-        {y:"1930", t:"Ameryka ogłasza odkrycie Plutona. Przez 76 lat myśleliśmy, że mamy 9 planet.", img:"https://upload.wikimedia.org/wikipedia/commons/2/2a/Nh-pluto-in-true-color_2x_JPEG.jpg"}, 
-        {y:"1845", t:"Opatentowano GUMKĘ RECEPTURKĘ. Taka mała rzecz, a jak bardzo ułatwia życie!", img:"https://upload.wikimedia.org/wikipedia/commons/9/91/Rubber_bands.jpg"}
+        {y:"1895", t:"Bracia Lumière pokazali swój pierwszy film. To oficjalne narodziny kina na świecie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Frères_Lumière.jpg?width=300"}, 
+        {y:"1930", t:"Ameryka ogłasza odkrycie Plutona. Przez 76 lat myśleliśmy, że mamy 9 planet.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Nh-pluto-in-true-color_2x_JPEG.jpg?width=300"}, 
+        {y:"1845", t:"Opatentowano GUMKĘ RECEPTURKĘ. Taka mała rzecz, a jak bardzo ułatwia życie!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Rubber_bands.jpg?width=300"}
     ],
     "03-20": [
-        {y:"1642", t:"Urodził się Isaac Newton. Odkrył prawo grawitacji – wyjaśnił, dlaczego jabłka spadają.", img:"https://upload.wikimedia.org/wikipedia/commons/3/39/GodfreyKneller-IsaacNewton-1689.jpg"}, 
-        {y:"WIO.", t:"Pierwszy dzień wiosny! Przyroda budzi się do życia, a dni są coraz dłuższe.", img:"https://upload.wikimedia.org/wikipedia/commons/9/92/Spring_flowers_crocus.jpg"}, 
-        {y:"1916", t:"Powstanie Legii Warszawa – jednego z najsłynniejszych polskich klubów piłkarskich.", img:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Legia_Warszawa_herb.svg"}
+        {y:"1642", t:"Urodził się Isaac Newton. Odkrył prawo grawitacji – wyjaśnił, dlaczego jabłka spadają.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/GodfreyKneller-IsaacNewton-1689.jpg?width=300"}, 
+        {y:"WIO.", t:"Pierwszy dzień wiosny! Przyroda budzi się do życia, a dni są coraz dłuższe.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Spring_flowers_crocus.jpg?width=300"}, 
+        {y:"1916", t:"Powstanie Legii Warszawa – jednego z najsłynniejszych polskich klubów piłkarskich.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Legia_Warszawa_herb.svg?width=300"}
     ],
     "03-23": [
-        {y:"1839", t:"Pierwsze użycie zwrotu 'OK' w gazecie. Dziś to najpopularniejsze słowo na świecie.", img:"https://upload.wikimedia.org/wikipedia/commons/3/3b/OK_gesture.jpg"}, 
-        {y:"1857", t:"Pierwsza winda osobowa ruszyła w Nowym Jorku. Budynki mogły stać się wyższe.", img:"https://upload.wikimedia.org/wikipedia/commons/6/67/Elisha_Otis_elevator_patent.png"}, 
-        {y:"2001", t:"Stacja kosmiczna MIR kończy misję i wpada do Oceanu Spokojnego.", img:"https://upload.wikimedia.org/wikipedia/commons/0/09/Mir_Space_Station_viewed_from_Endeavour_STS-89.jpg"}
+        {y:"1839", t:"Pierwsze użycie zwrotu 'OK' w gazecie. Dziś to najpopularniejsze słowo na świecie.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/OK_gesture.jpg?width=300"}, 
+        {y:"1857", t:"Pierwsza winda osobowa ruszyła w Nowym Jorku. Budynki mogły stać się wyższe.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Elisha_Otis_elevator_patent.png?width=300"}, 
+        {y:"2001", t:"Stacja kosmiczna MIR kończy misję i wpada do Oceanu Spokojnego.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Mir_Space_Station_viewed_from_Endeavour_STS-89.jpg?width=300"}
     ],
     "03-24": [
-        {y:"1993", t:"Odkryto kometę Shoemaker-Levy. Rok później uderzyła w Jowisza, co widzieliśmy przez teleskopy.", img:"https://upload.wikimedia.org/wikipedia/commons/7/7d/Shoemaker-Levy_9_on_Jupiter.jpg"}, 
-        {y:"1882", t:"Robert Koch odkrył bakterię gruźlicy. Lekarze mogli wreszcie zacząć leczyć tę chorobę.", img:"https://upload.wikimedia.org/wikipedia/commons/5/5e/Robert_Koch_Portrait.jpg"}, 
-        {y:"1909", t:"Harry Houdini uciekł z zamkniętej skrzyni pod wodą. To był pokaz wielkiej magii!", img:"https://upload.wikimedia.org/wikipedia/commons/6/69/Harry_Houdini.jpg"}
+        {y:"1993", t:"Odkryto kometę Shoemaker-Levy. Rok później uderzyła w Jowisza, co widzieliśmy przez teleskopy.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Shoemaker-Levy_9_on_Jupiter.jpg?width=300"}, 
+        {y:"1882", t:"Robert Koch odkrył bakterię gruźlicy. Lekarze mogli wreszcie zacząć leczyć tę chorobę.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Robert_Koch_Portrait.jpg?width=300"}, 
+        {y:"1909", t:"Harry Houdini uciekł z zamkniętej skrzyni pod wodą. To był pokaz wielkiej magii!", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Harry_Houdini.jpg?width=300"}
     ],
     "03-25": [
-        {y:"1655", t:"Odkrycie Tytana (księżyca Saturna). Dziś wiemy, że są tam jeziora z gazu.", img:"https://upload.wikimedia.org/wikipedia/commons/7/75/Huygens_on_Titan_surface.jpg"}, 
-        {y:"1957", t:"Początek Unii Europejskiej – kraje Europy zaczęły współpracować zamiast walczyć.", img:"https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg"}, 
-        {y:"1954", t:"Pierwsza kolorowa transmisja telewizyjna. Świat na ekranie nabrał barw.", img:"https://upload.wikimedia.org/wikipedia/commons/8/84/RCA_CT-100_television.jpg"}
+        {y:"1655", t:"Odkrycie Tytana (księżyca Saturna). Dziś wiemy, że są tam jeziora z gazu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Huygens_on_Titan_surface.jpg?width=300"}, 
+        {y:"1957", t:"Początek Unii Europejskiej – kraje Europy zaczęły współpracować zamiast walczyć.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Europe.svg?width=300"}, 
+        {y:"1954", t:"Pierwsza kolorowa transmisja telewizyjna. Świat na ekranie nabrał barw.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/RCA_CT-100_television.jpg?width=300"}
     ],
     "03-26": [
-        {y:"1998", t:"Premiera gry StarCraft. Stała się narodowym sportem w Korei Południowej.", img:"https://upload.wikimedia.org/wikipedia/commons/2/2a/Esports_tournament.jpg"}, 
-        {y:"1946", t:"Urodził się Jan Miodek. Słynny profesor uczy nas pięknej mowy polskiej.", img:"https://upload.wikimedia.org/wikipedia/commons/d/df/Jan_Miodek_2011.jpg"}, 
-        {y:"1885", t:"Kodak wypuścił aparat z kliszą w rolce. Zdjęcia stały się łatwe dla każdego.", img:"https://upload.wikimedia.org/wikipedia/commons/b/b4/Kodak_No1_Camera.jpg"}
+        {y:"1998", t:"Premiera gry StarCraft. Legenda strategii komputerowych i e-sportu.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Esports_tournament.jpg?width=300"}, 
+        {y:"1946", t:"Urodził się Jan Miodek. Słynny profesor uczy nas pięknej mowy polskiej.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Jan_Miodek_2011.jpg?width=300"}, 
+        {y:"1885", t:"Kodak wypuścił aparat z kliszą w rolce. Zdjęcia stały się łatwe dla każdego.", img:"https://commons.wikimedia.org/wiki/Special:FilePath/Kodak_No1_Camera.jpg?width=300"}
     ],
     "03-27": [
         {y:"1901", t:"Pierwsza Nagroda Nobla za promienie X. Lekarze mogli zajrzeć pod skórę pacjenta.", img:"https://upload.wikimedia.org/wikipedia/commons/b/bb/First_medical_X-ray_by_Wilhelm_R%C3%B6ntgen_of_his_wife_Anna_Bertha_Ludwig%27s_hand_-_18951222.jpg"}, 
@@ -636,4 +636,5 @@ let FIXED_DATABASE = {
     </script>
 </body>
 </html>
+
 
