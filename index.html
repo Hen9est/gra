@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Antygravity - Ciekawostki dla Dzieci</title>
+    <title>Panel Antygravity - Kalendarium i Szczęśliwy Numer</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
     
@@ -24,7 +24,7 @@
         }
         #main-wrapper {
             width: 640px; height: 280px; position: relative;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2); background-color: #fff;
             border-radius: 15px; overflow: hidden;
         }
         .view {
@@ -35,13 +35,16 @@
         }
         .view.active { opacity: 1; z-index: 10; transform: translateY(0); }
         .view.inactive { opacity: 0; z-index: 0; transform: translateY(20px); }
+        
         .panel { flex: 1; display: flex; flex-direction: column; padding: 10px; box-sizing: border-box; align-items: center; }
         #left-panel { background-color: #f9f9f9; border-right: 1px solid #eee; padding-top: 10px; }
         #right-panel { background-color: #ffffff; padding-top: 10px; }
+        
         #clock-container { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; flex-grow: 1; text-align: center; }
         #dayofweek { font-size: 0.9em; font-weight: 400; color: #616161; text-transform: uppercase; margin-bottom: 2px; }
         #current-date { font-size: 1.1em; color: #424242; margin-bottom: 5px; }
         #current-time { font-size: 2.5em; font-weight: 300; color: #212121; }
+
         #lucky-number-container {
             width: 90%; height: 100%; position: relative; display: flex; flex-direction: column;
             align-items: center; border: 8px solid var(--theme-border-color);
@@ -54,14 +57,15 @@
             margin: 5px 0 5px 0; -webkit-text-stroke: 1.5px black; color: var(--theme-title-color); z-index: 10;
         }
         #lucky-content-wrapper { display: flex; flex-direction: row; justify-content: space-around; align-items: center; width: 100%; flex-grow: 1; }
-        #lucky-dice-column { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; width: 100px; }
+        #lucky-dice-column { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; width: 100px; }
         #lucky-number-text {
             font-family: 'Bangers', cursive; font-size: 4.5em; line-height: 1; margin: 0;
             -webkit-text-stroke: 2px black; text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
             color: var(--theme-number-color); z-index: 10;
         }
-        .dice { width: 45px; height: 45px; background: white; border: 2px solid black; border-radius: 6px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 4px; box-sizing: border-box; }
-        .dot { width: 9px; height: 9px; background: black; border-radius: 50%; align-self: center; justify-self: center; }
+        
+        .dice { width: 42px; height: 42px; background: white; border: 2px solid black; border-radius: 6px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 4px; box-sizing: border-box; }
+        .dot { width: 8px; height: 8px; background: black; border-radius: 50%; align-self: center; justify-self: center; }
         .dice.value-1 .dot { grid-area: 2 / 2; }
         .dice.value-2 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-2 .dot:nth-child(2) { grid-area: 3 / 3; }
         .dice.value-3 .dot:nth-child(1) { grid-area: 1 / 1; } .dice.value-3 .dot:nth-child(2) { grid-area: 2 / 2; } .dice.value-3 .dot:nth-child(3) { grid-area: 3 / 3; }
@@ -75,10 +79,73 @@
         .highlight-date { display: inline-block; background-color: var(--date-bg-color); color: #ffffff; padding: 3px 10px; border: 2px solid black; border-radius: 6px; box-shadow: 3px 3px 0px rgba(0,0,0,0.1); font-size: 1.1em; -webkit-text-stroke: 1px black; }
         .single-fact-box { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 95%; padding: 5px; }
         .single-fact-text { font-family: 'Roboto', sans-serif; font-size: 1.45em; line-height: 1.25; color: #222; font-weight: 400; text-align: center; }
+        
+        /* Przycisk ustawień */
+        #gear-btn {
+            position: absolute; top: 10px; right: 10px; z-index: 100;
+            background: none; border: none; cursor: pointer; color: #aaa; transition: color 0.3s, transform 0.3s;
+        }
+        #gear-btn:hover { color: #555; transform: rotate(45deg); }
+        #gear-btn svg { width: 24px; height: 24px; fill: currentColor; }
+
+        /* Edytor Overlay */
+        #editor-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 200; display: none;
+            justify-content: center; align-items: center;
+        }
+        #editor-content {
+            background: white; width: 90%; max-width: 600px; max-height: 90vh;
+            border-radius: 15px; padding: 20px; overflow-y: auto; position: relative;
+        }
+        .editor-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; margin-bottom: 15px; padding-bottom: 10px; }
+        .editor-header h3 { margin: 0; font-family: 'Bangers', cursive; color: #1d3557; letter-spacing: 1px; }
+        .close-editor { background: #eee; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-weight: bold; }
+        
+        .date-selector { display: flex; gap: 10px; margin-bottom: 20px; }
+        .date-selector select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; flex: 1; font-size: 1em; }
+        
+        .event-edit-group { background: #f9f9f9; border-radius: 10px; padding: 10px; margin-bottom: 15px; border-left: 4px solid var(--date-bg-color); }
+        .event-edit-group label { display: block; font-size: 0.8em; font-weight: bold; margin-bottom: 5px; color: #666; }
+        .event-edit-group input { width: 100%; padding: 5px; margin-bottom: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .event-edit-group textarea { width: 100%; height: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; resize: none; font-family: sans-serif; }
+        
+        .save-btn { background: #1d3557; color: white; border: none; padding: 12px 20px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; font-size: 1.1em; transition: background 0.3s; }
+        .save-btn:hover { background: #457b9d; }
+
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
+    <button id="gear-btn" title="Otwórz przeglądarkę wydarzeń">
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+    </button>
+
+    <div id="editor-overlay">
+        <div id="editor-content">
+            <div class="editor-header">
+                <h3>Edytor Wydarzeń</h3>
+                <button class="close-editor">X</button>
+            </div>
+            
+            <div class="date-selector">
+                <select id="select-month">
+                    <option value="01">Styczeń</option>
+                    <option value="02">Luty</option>
+                    <option value="03">Marzec</option>
+                    <option value="04">Kwiecień</option>
+                </select>
+                <select id="select-day"></select>
+            </div>
+
+            <div id="events-editor-list">
+                <!-- Tu pojawią się pola edycji -->
+            </div>
+
+            <button class="save-btn">Zapisz Zmiany</button>
+        </div>
+    </div>
+
     <div id="main-wrapper">
         <div id="view-a" class="view active">
             <div id="left-panel" class="panel">
@@ -107,91 +174,107 @@
     </div>
 
     <script>
-        // PEŁNA BAZA DANYCH 01-07 DO 04-30
-        const FIXED_DATABASE = {
-            "01-07": [
-                {y:"1610", t:"Galileusz odkrył przez lunetę 4 księżyce Jowisza. To był dowód na to, że Ziemia nie jest jedynym centrum wszechświata!"},
-                {y:"1785", t:"Pierwszy lot balonem nad morzem (Kanał La Manche). Ludzie udowodnili, że potrafią latać między państwami!"},
-                {y:"1882", t:"Jan Matejko, słynny polski malarz bitew, został doceniony w Paryżu. Pokazał światu historię Polski na wielkich obrazach."}
-            ],
-            "01-08": [
-                {y:"1942", t:"Urodził się Stephen Hawking. Choć choroba go sparaliżowała, stał się najsłynniejszym badaczem kosmosu i czarnych dziur."},
-                {y:"1747", t:"Otwarto Bibliotekę Załuskich w Warszawie. To była jedna z pierwszych bibliotek na świecie dostępna dla każdego obywatela!"},
-                {y:"1927", t:"W Polsce ruszyło nowoczesne wydawnictwo prasowe. Dzięki temu ludzie mogli szybciej dowiadywać się o nowościach ze świata."}
-            ],
-            "01-09": [
-                {y:"1890", t:"Urodził się autor słowa ROBOT (Karel Čapek). Wymyślił je, by opisać mechaniczne postacie pomagające ludziom w pracy."},
-                {y:"1839", t:"Wynaleziono dagerotyp, czyli prababcię aparatu fotograficznego. Po raz pierwszy w historii można było zrobić trwałe zdjęcie!"},
-                {y:"1993", t:"Pierwszy finał Wielkiej Orkiestry Świątecznej Pomocy. Polacy zaczęli zbierać pieniądze na nowoczesny sprzęt dla szpitali."}
-            ],
-            "01-10": [
-                {y:"1863", t:"W Londynie ruszyło pierwsze na świecie METRO. Pociągi jeździły pod ziemią dzięki wielkim lokomotywom parowym!"},
-                {y:"1946", t:"Pierwsze spotkanie ONZ. To organizacja, która pilnuje, by kraje na świecie nie kłóciły się i nie prowadziły wojen."},
-                {y:"1975", t:"Polski statek 'Magnolia' ruszył badać Antarktykę. Polscy naukowcy do dziś prowadzą tam ważne badania lodu i klimatu."}
-            ],
-            "01-11": [
-                {y:"1912", t:"Polski chemik Kazimierz Funk odkrył witaminy i wymyślił ich nazwę. Dzięki niemu wiemy, że owoce i warzywa dają nam zdrowie!"},
-                {y:"1922", t:"Pierwszy raz użyto insuliny do ratowania życia. To lekarstwo, dzięki któremu miliony chorych osób mogą normalnie żyć."},
-                {y:"1569", t:"W Anglii odbyła się pierwsza publiczna loteria. Ludzie kupowali losy, by wygrać pieniądze na naprawę portów i statków."}
-            ],
-            "01-24": [
-                {y:"1984", t:"Firma Apple pokazała pierwszy komputer Macintosh. Miał on przełomową myszkę i proste ikony, które dziś znamy z każdego komputera!"},
-                {y:"1918", t:"Zjednoczenie polskich harcerzy w ZHP. Od tej pory młodzi Polacy wspólnie uczą się przygody i pomagania innym."},
-                {y:"1908", t:"Narodziny skautingu. To ruch dla dzieci i młodzieży, który uczy jak przetrwać w lesie i być dobrym człowiekiem."}
-            ],
-            "01-25": [
-                {y:"1881", t:"W Grecji ruszyła budowa Kanału Korynckiego. To ogromny rów wykopany w skale, przez który statki skracają sobie drogę o setki kilometrów!"},
-                {y:"1924", t:"Rozpoczęły się pierwsze Zimowe Igrzyska Olimpijskie. Sportowcy z całego świata zaczęli rywalizować w skokach i jeździe na nartach."},
-                {y:"1831", t:"Akt odwagi Sejmu Polskiego. Podczas powstania Polacy oficjalnie ogłosili, że nie chcą, by ich krajem rządził car Rosji."}
-            ],
-            "02-14": [
-                {y:"2005", t:"Zarejestrowano domenę YouTube. Od tego dnia każdy z nas może nagrywać i wrzucać własne filmy do internetu!"},
-                {y:"1876", t:"Alexander Graham Bell zgłosił patent na telefon. To on wymyślił, jak przesyłać ludzki głos przez kable na odległość."},
-                {y:"1942", t:"Powstała Armia Krajowa. To była największa podziemna armia w historii, która walczyła o wolną Polskę podczas II wojny światowej."}
-            ],
-            "02-19": [
-                {y:"1473", t:"W Toruniu urodził się Mikołaj Kopernik. Polak, który 'zatrzymał Słońce, wzruszył Ziemię' i zmienił wszystko, co wiedzieliśmy o kosmosie!"},
-                {y:"1878", t:"Thomas Edison patentuje fonograf. To było pierwsze urządzenie, które potrafiło nagrać piosenkę i ją odtworzyć."},
-                {y:"1990", t:"Premiera programu Photoshop. To narzędzie, dzięki któremu graficy i fotografowie mogą dowolnie zmieniać zdjęcia na komputerze."}
-            ],
-            "03-14": [
-                {y:"1879", t:"Urodził się Albert Einstein. Ten genialny fizyk udowodnił, że czas i energia działają inaczej, niż nam się wydaje!"},
-                {y:"ŚW.", t:"Świętujemy Dzień Liczby Pi! To tajemnicza liczba matematyczna, której używamy np. do obliczania pola koła."},
-                {y:"1929", t:"Pierwszy pokaz filmu dźwiękowego w Polsce. Od tego dnia aktorzy na ekranach kin zaczęli wreszcie głośno mówić!"}
-            ],
-            "04-12": [
-                {y:"1961", t:"Jurij Gagarin jako pierwszy człowiek wyleciał w kosmos! Jego podróż dookoła Ziemi trwała zaledwie 108 minut."},
-                {y:"1981", t:"Wystartował pierwszy prom kosmiczny Columbia. Był niezwykły, bo potrafił wrócić z kosmosu i lądować jak zwykły samolot."},
-                {y:"ŚW.", t:"Dziś Międzynarodowy Dzień Czekolady! Czy wiesz, że kiedyś czekolada była tak cenna, że używano jej jako pieniędzy?"}
-            ],
-            "04-30": [
-                {y:"1777", t:"Urodził się Carl Gauss, 'Książę Matematyków'. Już jako dziecko potrafił błyskawicznie dodawać ogromne liczby w pamięci!"},
-                {y:"1993", t:"Europejska organizacja CERN ogłosiła, że internet (sieć WWW) będzie darmowy dla wszystkich ludzi na świecie."},
-                {y:"1925", t:"Otwarcie kopalni soli w Wieliczce jako miejsca zwiedzania. Polskie białe złoto zaczęli podziwiać turyści z całego świata."}
-            ]
+        // --- BAZA DANYCH HISTORYCZNYCH ---
+        let FIXED_DATABASE = {
+            "01-07": [{y:"1610", t:"Galileusz odkrył 4 księżyce Jowisza. To był dowód na to, że Ziemia nie jest jedynym centrum wszechświata!"}, {y:"1785", t:"Pierwszy lot balonem nad morzem (Kanał La Manche). Ludzie pokazali, że potrafią latać między krajami."}, {y:"1882", t:"Jan Matejko, słynny polski malarz, został doceniony w Paryżu za obrazy pokazujące historię Polski."}],
+            "01-08": [{y:"1942", t:"Urodził się Stephen Hawking. Choć choroba go unieruchomiła, stał się najsłynniejszym badaczem kosmosu i czarnych dziur."}, {y:"1747", t:"Otwarto Bibliotekę Załuskich w Warszawie. To była jedna z pierwszych bibliotek narodowych na świecie!"}, {y:"1927", t:"W Niepokalanowie pod Warszawą ruszyło nowoczesne wydawnictwo. Dzięki niemu wiedza docierała do wszystkich."}],
+            "01-09": [{y:"1890", t:"Urodził się Karel Čapek, który wymyślił słowo ROBOT. Chciał opisać mechanicznych pomocników człowieka."}, {y:"1839", t:"Wynaleziono dagerotyp – prababcię aparatu. Po raz pierwszy można było zrobić trwałe, wyraźne zdjęcie!"}, {y:"1993", t:"Pierwszy finał Wielkiej Orkiestry Świątecznej Pomocy. Polacy zaczęli wspólnie pomagać chorym dzieciom."}],
+            "01-10": [{y:"1863", t:"W Londynie ruszyło pierwsze METRO. Pociągi jeździły pod ziemią dzięki wielkim lokomotywom parowym!"}, {y:"1946", t:"Pierwsze spotkanie ONZ. To organizacja, która pilnuje, by kraje na świecie żyły w pokoju i nie walczyły."}, {y:"1975", t:"Polski statek 'Magnolia' ruszył badać Antarktykę. Polscy naukowcy do dziś prowadzą tam ważne badania lodu."}],
+            "01-13": [{y:"1910", t:"Pierwsza publiczna transmisja radiowa z opery. Ludzie mogli usłyszeć muzykę w domach przez radio!"}, {y:"1957", t:"Opatentowano FRISBEE – latający talerz do zabawy, który stał się hitem na całym świecie."}, {y:"1903", t:"W Warszawie ruszyła pierwsza elektrownia publiczna. Na ulicach miasta zapłonęły elektryczne latarnie!"}],
+            "01-14": [{y:"1899", t:"W Łodzi otwarto pierwsze stałe kino w Polsce. Nazywało się 'Teatr Żywych Fotografii'."}, {y:"2005", t:"Europejska sonda Huygens wylądowała na Tytanie (księżycu Saturna). To najdalsze lądowanie w historii!"}, {y:"1913", t:"Albert Schweitzer otwiera szpital w Gabonie. Ten lekarz-noblista poświęcił życie pomaganiu chorym w Afryce."}],
+            "01-15": [{y:"2001", t:"Narodziny Wikipedii! To darmowa encyklopedia, którą każdy może współtworzyć i z której uczymy się za darmo."}, {y:"1759", t:"Otwarcie British Museum w Londynie. Można tam zobaczyć skarby świata, np. rzeźby z antycznej Grecji."}, {y:"1990", t:"Radio RMF FM zaczyna nadawać z Krakowa jako pierwsza prywatna stacja radiowa w wolnej Polsce."}],
+            "01-16": [{y:"1919", t:"Ignacy Jan Paderewski, słynny pianista, zostaje premierem Polski. Połączył muzykę z wielką polityką."}, {y:"1909", t:"Odkryto południowy biegun magnetyczny – kluczowy punkt dla działania wszystkich kompasów na Ziemi."}, {y:"1969", t:"Pierwszy spacer kosmonautów między pojazdami na orbicie – to był ważny krok przed lotem na Księżyc."}],
+            "01-17": [{y:"1706", t:"Urodził się Benjamin Franklin. To on wynalazł PIORUNOCHRON, który chroni nasze domy przed burzami."}, {y:"1945", t:"Zakończenie walk o Warszawę. Choć miasto było zniszczone, od tego dnia zaczęło się jego wielkie odradzanie."}, {y:"1961", t:"Pierwszy występ The Beatles w Liverpoolu. Ten zespół z Europy zmienił muzykę na zawsze."}],
+            "01-20": [{y:"1817", t:"W Warszawie powstała Giełda Kupiecka – miejsce, gdzie uczciwie handlowano towarami i pieniędzmi."}, {y:"1265", t:"W Anglii odbył się pierwszy PARLAMENT w Europie. To początek systemu, w którym naród wybiera władzę."}, {y:"1930", t:"Urodził się Buzz Aldrin, drugi człowiek w historii, który postawił stopę na powierzchni Księżyca."}],
+            "01-21": [{y:"1892", t:"W Warszawie otwarto pierwsze w Polsce schronisko dla zwierząt. Ludzie zaczęli lepiej dbać o psy i koty."}, {y:"1976", t:"Europejski samolot naddźwiękowy CONCORDE rusza w pierwszy lot. Latał on szybciej niż dźwięk!"}, {y:"1954", t:"Wodowanie Nautilusa – pierwszego na świecie okrętu podwodnego napędzanego bezpieczną energią atomową."}],
+            "01-22": [{y:"1863", t:"Wybuch Powstania Styczniowego. Polacy dzielnie i odważnie walczyli o wolność przeciwko rosyjskiemu zaborcy."}, {y:"1775", t:"Urodził się André Ampère. To od jego nazwiska jednostka prądu w Twoim gniazdku nazywa się AMPER."}, {y:"1922", t:"Z Nowego Jorku rusza pierwszy w historii rejs wycieczkowy statku pasażerskiego dookoła całego świata."}],
+            "01-23": [{y:"1932", t:"Urodził się Ryszard Kapuściński, polski reporter. Opisywał kraje i kultury, których nikt wcześniej nie znał."}, {y:"1960", t:"Jacques Piccard dotarł na dno Rowu Mariańskiego (11 km pod wodą!). Wytrzymał tam ogromne ciśnienie."}, {y:"1849", t:"Elizabeth Blackwell jako pierwsza kobieta w historii otrzymała dyplom lekarza. Przełamała wielkie bariery!"}],
+            "01-24": [{y:"1984", t:"Firma Apple pokazała pierwszy komputer MACINTOSH. Miał on przełomową myszkę i ikony, których używamy do dziś."}, {y:"1918", t:"Zjednoczenie polskich harcerzy w ZHP. Od tej pory młodzi Polacy wspólnie uczą się przygody i pomagania."}, {y:"1908", t:"Narodziny skautingu w Anglii. To ruch uczący dzieci samodzielności i życia w zgodzie z naturą."}],
+            "01-27": [{y:"1756", t:"Urodził się Wolfgang Amadeusz Mozart. Był muzycznym geniuszem, który pisał utwory już jako 5-latek!"}, {y:"1945", t:"Wyzwolenie obozu Auschwitz. Dziś to Międzynarodowy Dzień Pamięci o ofiarach wojen na świecie."}, {y:"2005", t:"Premiera gry World of Warcraft w Europie – to zmieniło świat gier komputerowych online na zawsze."}],
+            "01-28": [{y:"1958", t:"W Danii opatentowano klocki LEGO. Ich nazwa oznacza 'Baw się dobrze' (z duńskiego Leg Godt)."}, {y:"1611", t:"Urodził się Jan Heweliusz z Gdańska. Jako pierwszy astronom stworzył dokładne mapy powierzchni Księżyca."}, {y:"1886", t:"Karl Benz patentuje pierwszy samochód. Jechał z prędkością 16 km/h – wolniej niż biegnący dorosły!"}],
+            "01-29": [{y:"1886", t:"Dzień narodzin nowoczesnej motoryzacji – pierwszy samochód z silnikiem wyjechał na drogi Europy."}, {y:"1962", t:"Urodziła się Olga Tokarczuk, polska pisarka. Za swoje niesamowite książki otrzymała Nagrodę Nobla."}, {y:"1887", t:"W Anglii ukazuje się pierwsza opowieść o Sherlocku Holmesie – najsłynniejszym detektywie świata."}],
+            "01-30": [{y:"1995", t:"Marek Kamiński dotarł samotnie na Biegun Północny. To pierwszy taki wyczyn Polaka w mroźnych lodach."}, {y:"1882", t:"Urodził się Franklin D. Roosevelt, wielki prezydent, który pomógł światu wyjść z ogromnego kryzysu."}, {y:"1933", t:"W radiu debiutuje Samotny Strażnik – bohater, który stał się symbolem walki o sprawiedliwość i dobro."}],
+            "01-31": [{y:"1860", t:"Wydano pierwszy polski znaczek pocztowy. Służył on do wysyłania listów w całym naszym kraju."}, {y:"1958", t:"USA wystrzeliwuje pierwszego satelitę Explorer 1. Odkrył on pasy promieniowania wokół Ziemi."}, {y:"1946", t:"Urodził się Ryszard Szurkowski, polski mistrz kolarstwa i legenda sportu dla wielu pokoleń."}],
+
+            "02-03": [{y:"1916", t:"Polak Jan Czochralski odkrył metodę tworzenia kryształów. Bez tego nie byłoby Twojego smartfona!"}, {y:"1809", t:"Urodził się Felix Mendelssohn, wielki kompozytor z Europy. Napisał m.in. słynny 'Marsz Weselny'."}, {y:"1966", t:"Sonda Luna 9 wykonała pierwsze 'miękkie' lądowanie na Księżycu. Nie rozbiła się i przesłała zdjęcia!"}],
+            "02-04": [{y:"1746", t:"Urodził się Tadeusz Kościuszko. To wielki polski bohater, który walczył o wolność Polski i Ameryki."}, {y:"2004", t:"Narodziny Facebooka. Serwis, który miał służyć studentom, połączył miliardy ludzi na świecie."}, {y:"1748", t:"W Warszawie otwarto Operalnię – pierwszy publiczny teatr operowy w Polsce dostępny dla każdego."}],
+            "02-05": [{y:"1928", t:"Powstanie Biblioteki Narodowej w Warszawie. To najważniejszy skarbiec polskiej literatury i wiedzy."}, {y:"1953", t:"Disney wypuszcza film 'Piotruś Pan'. Bajka o Nibylandii i wiecznym dziecku stała się hitem świata."}, {y:"1870", t:"Pierwsza masowa produkcja gumy do żucia. Ludzie zaczęli żuć dla zabawy i świeżego oddechu."}],
+            "02-06": [{y:"1905", t:"W Zakopanem odbyły się pierwsze zawody w skokach narciarskich. To początek wielkiej pasji Polaków."}, {y:"1935", t:"Opatentowano grę MONOPOLY. Choć wymyśliła ją kobieta z Europy, stała się najpopularniejszą grą świata."}, {y:"1952", t:"Elżbieta II została królową Wielkiej Brytanii. Rządziła rekordowo długo – aż 70 lat!"}],
+            "02-07": [{y:"1927", t:"Mazurek Dąbrowskiego oficjalnie uznano za hymn Polski. Pieśń ta stała się naszym symbolem narodowym."}, {y:"1812", t:"Urodził się Karol Dickens. Angielski pisarz, który stworzył słynną 'Opowieść wigilijną' o Scrooge’u."}, {y:"1984", t:"Pierwszy spacer w kosmosie bez liny zabezpieczającej. Astronauta latał swobodnie obok statku!"}],
+            "02-10": [{y:"1920", t:"Zaślubiny Polski z Morzem. Generał Haller wrzucił pierścień do Bałtyku na znak powrotu Polski nad morze."}, {y:"1926", t:"Gdynia otrzymała prawa miejskie. Z małej wioski rybackiej stała się nowoczesnym, polskim portem."}, {y:"1940", t:"Tom i Jerry – premiera kreskówki. Walka kota i myszki bawi dzieci od ponad 80 lat!"}],
+            "02-11": [{y:"1966", t:"Premiera komiksu o Tytusie, Romku i A’Tomku. Polskie dzieci pokochały przygody szympansa i harcerzy."}, {y:"1847", t:"Urodził się Thomas Edison. Wynalazca, który udoskonalił żarówkę i dał nam światło elektryczne."}, {y:"2016", t:"Naukowcy potwierdzili odkrycie fal grawitacyjnych. To dowód, że przestrzeń w kosmosie faluje!"}],
+            "02-12": [{y:"1918", t:"Powstało Polskie Towarzystwo Geograficzne. Naukowcy zaczęli badać ziemie odrodzonej Polski."}, {y:"1809", t:"Urodził się Karol Darwin. Dzięki jego podróżom dowiedzieliśmy się, jak zmieniają się zwierzęta i ludzie."}, {y:"1922", t:"Premiera pierwszego filmu w 3D. Choć potrzebne były okulary, obraz wydawał się wychodzić z ekranu!"}],
+            "02-13": [{y:"ŚW.", t:"Dziś Światowy Dzień Radia. To święto wynalazku, który pozwala słuchać muzyki na ogromne odległości."}, {y:"1903", t:"Urodził się Georges Simenon, belgijski pisarz. Stworzył postać komisarza Maigret, mistrza zagadek."}, {y:"1923", t:"W Polsce odbyło się pierwsze publiczne wykonanie muzyki JAZZOWEJ. To był czas wielkiej mody na rytm."}],
+            "02-14": [{y:"2005", t:"Zarejestrowano domenę YouTube. Od tego dnia każdy może nagrywać filmy i pokazywać je światu!"}, {y:"1876", t:"Bell zgłosił patent na TELEFON. Wymyślił, jak przesyłać ludzki głos przez kable na odległość."}, {y:"1942", t:"Powstanie Armii Krajowej (AK). Polscy bohaterowie walczyli o wolność kraju podczas II wojny światowej."}],
+            "02-17": [{y:"1980", t:"Polacy Wielicki i Cichy jako pierwsi na świecie zdobyli Mount Everest zimą! To był wielki rekord."}, {y:"1933", t:"Wyszło pierwsze wydanie tygodnika Newsweek. Do dziś opisuje najważniejsze wydarzenia na globie."}, {y:"ŚW.", t:"Dziś Europejski Dzień Kota. Ludzie w Polsce i Europie świętują i dbają o swoich puszystych przyjaciół."}],
+            "02-18": [{y:"1919", t:"Powstał Polski Związek Lekkiej Atletyki. Polscy sportowcy zaczęli startować w biegach i rzutach."}, {y:"1930", t:"Odkrycie PLUTONA. Przez wiele lat uważano go za planetę, dziś nazywamy go planetą karłowatą."}, {y:"2021", t:"Łazik Perseverance wylądował na Marsie. Szuka tam śladów życia i bada czerwoną planetę."}],
+            "02-19": [{y:"1473", t:"Urodziny Kopernika w Toruniu. Polak, który 'wstrzymał Słońce, ruszył Ziemię' i zmienił naukę świata."}, {y:"1878", t:"Edison patentuje fonograf. To było pierwsze urządzenie, które nagrywało i odtwarzało ludzki głos."}, {y:"1990", t:"Premiera programu Adobe Photoshop. Zmienił on świat zdjęć, pozwalając na ich cyfrową obróbkę."}],
+            "02-20": [{y:"1862", t:"W Warszawie powstało Muzeum Narodowe. To największy skarbiec polskiej sztuki i zabytków."}, {y:"1962", t:"John Glenn został pierwszym Amerykaninem, który okrążył Ziemię w kapsule na orbicie kosmicznej."}, {y:"1998", t:"Premiera gry StarCraft. To legenda strategii komputerowych, która stała się dyscypliną e-sportową."}],
+            "02-21": [{y:"1804", t:"Pierwszy przejazd lokomotywy parowej na szynach w Walii. To początek ery wielkich pociągów."}, {y:"1986", t:"Premiera gry The Legend of Zelda. Przygody Linka stały się jedną z najważniejszych gier świata."}, {y:"ŚW.", t:"Międzynarodowy Dzień Języka Ojczystego. Dziś dbamy o to, by mówić poprawnie i pięknie po polsku!"}],
+            "02-24": [{y:"1896", t:"Pierwszy pokaz filmu w Warszawie. Polacy po raz pierwszy zobaczyli 'ożywione fotografie'."}, {y:"1955", t:"Urodził się Steve Jobs, wizjoner z Apple. Stworzył iPhone'a i komputery, które zmieniły życie."}, {y:"1582", t:"Papież Grzegorz wprowadził kalendarz gregoriański, którego używamy do dzisiaj na całym świecie."}],
+            "02-25": [{y:"1936", t:"Urodziła się Anna German. Polska piosenkarka o niesamowitym głosie, którą kochali ludzie w Europie."}, {y:"1836", t:"Opatentowano rewolwer Colta – nową broń, która stała się symbolem historii Dzikiego Zachodu."}, {y:"1950", t:"Powstała Europejska Unia Nadawców (EBU). To oni stworzyli konkurs Eurowizji, który oglądamy co roku."}],
+            "02-26": [{y:"1927", t:"Mazurek Dąbrowskiego ogłoszono hymnem Polski. Ta pieśń dawała Polakom siłę w trudnych chwilach."}, {y:"1896", t:"Henri Becquerel odkrył promieniotwórczość. Za to odkrycie on i Maria Skłodowska-Curie dostali Nobla."}, {y:"1952", t:"Wielka Brytania ogłosiła, że posiada własną bombę atomową, stając się potęgą militarną Europy."}],
+            "02-27": [{y:"1897", t:"Urodził się Kazimierz Nowak. Jako pierwszy człowiek na świecie przejechał całą Afrykę na rowerze!"}, {y:"1937", t:"W Anglii odbyła się pierwsza transmisja meczu piłki w telewizji. Kibice mogli zostać w domach."}, {y:"1932", t:"Odkrycie NEUTRONU – małej cząsteczki atomu. Pozwoliło to naukowcom zrozumieć budowę materii."}],
+            "02-28": [{y:"1947", t:"W Bielsku-Białej powstało Studio Filmów Rysunkowych. Tam urodziły się bajki 'Bolek i Lolek' i 'Reksio'!"}, {y:"1953", t:"Naukowcy odkryli strukturę DNA – 'instrukcję obsługi' życia. To był przełom w biologii."}, {y:"1935", t:"Wynalezienie NYLONU. To sztuczny materiał, z którego dziś robi się ubrania i szczoteczki do zębów."}],
+
+            "03-03": [{y:"1847", t:"Urodził się Bell. Ten wynalazca z Europy stworzył pierwszy działający TELEFON."}, {y:"1989", t:"Premiera gry Tetris na konsolę Game Boy. Układanie klocków stało się ulubioną rozrywką świata."}, {y:"1969", t:"Start misji Apollo 9. Testowano lądownik, który później wylądował z ludźmi na Księżycu."}],
+            "03-04": [{y:"1880", t:"W gazecie opublikowano pierwsze w historii zdjęcie. Druk gazet stał się o wiele ciekawszy!"}, {y:"1745", t:"Urodził się Kazimierz Pułaski. To polski bohater, który walczył o wolność Polski i Ameryki."}, {y:"1936", t:"Pierwszy lot myśliwca Spitfire. Ten samolot odegrał kluczową rolę w obronie wolności Europy."}],
+            "03-05": [{y:"1979", t:"Sonda Voyager 1 przeleciała obok Jowisza. Zrobiła niesamowite zdjęcia największej planety świata."}, {y:"1817", t:"W Warszawie otwarto Giełda – miejsce, gdzie kupcy handlowali i dbali o polski handel."}, {y:"1475", t:"Urodził się Michał Anioł. Był genialnym rzeźbiarzem i malarzem, autorem słynnego Dawida."}],
+            "03-06": [{y:"1899", t:"Opatentowano ASPIRYNĘ – lek, który do dziś pomaga ludziom walczyć z gorączką i bólem."}, {y:"1475", t:"W tym dniu urodził się wielki artysta renesansu, który stworzył najpiękniejsze rzeźby Europy."}, {y:"1851", t:"W Warszawie Karol Wedel otworzył cukiernię. Tak zaczęła się historia słynnych polskich czekolad."}],
+            "03-10": [{y:"1876", t:"Pierwsza rozmowa telefoniczna. Bell powiedział: 'Panie Watson, proszę tu przyjść!'. Udało się!"}, {y:"1948", t:"Urodził się Jerzy Kukuczka, polski himalaista. Jako drugi człowiek zdobył wszystkie 14 ośmiotysięczników."}, {y:"1977", t:"Astronomowie odkryli pierścienie wokół planety URAN. Okazało się, że nie tylko Saturn je ma!"}],
+            "03-11": [{y:"1992", t:"Premiera Super Mario World w Europie. Sympatyczny hydraulik stał się ulubieńcem dzieci."}, {y:"1969", t:"Urodził się Jan Kulig, polski mistrz rajdowy. Był jednym z najszybszych kierowców rajdowych Polski."}, {y:"1853", t:"W Londynie otwarto pierwsze oceanarium. Ludzie mogli po raz pierwszy podziwiać ryby za szybą."}],
+            "03-12": [{y:"1989", t:"Tim Berners-Lee zaproponował WWW. Dzięki temu dzisiaj możemy przeglądać strony internetowe."}, {y:"1999", t:"Polska przystąpiła do NATO. To wielki sojusz obronny, który zapewnia naszemu krajowi bezpieczeństwo."}, {y:"1833", t:"W Europie opatentowano pierwszy automat do napojów. Wrzucałeś monetę i dostawałeś picie!"}],
+            "03-13": [{y:"1781", t:"William Herschel odkrył planetę URAN. Pierwszy raz nowożytny astronom odkrył nową planetę."}, {y:"1915", t:"Pierwszy raz sfotografowano Plutona, choć wtedy nikt nie wiedział jeszcze, co to za obiekt."}, {y:"1919", t:"Powstał Polski Związek Narciarski. Sporty zimowe w Polsce stały się od tego dnia profesjonalne."}],
+            "03-14": [{y:"1879", t:"Urodził się Albert Einstein. Najsłynniejszy fizyk świata, który wyjaśnił nam czas i energię."}, {y:"ŚW.", t:"Dziś Dzień Liczby PI. Matematycy na całym świecie świętują tę nieskończoną liczbę."}, {y:"1929", t:"Pierwszy pokaz filmu dźwiękowego w Polsce. Kino przestało być nieme – aktorzy przemówili!"}],
+            "03-17": [{y:"1834", t:"Urodził się Gottlieb Daimler, pionier motoryzacji. Zbudował jeden z pierwszych silników spalinowych."}, {y:"1852", t:"Odkrycie asteroidy PSYCHE. Jest niezwykła, bo składa się niemal w całości z czystego metalu."}, {y:"1929", t:"Pierwszy lot polskiego samolotu PLL LOT. Nasze linie lotnicze zaczęły łączyć Polskę ze światem."}],
+            "03-18": [{y:"1965", t:"Aleksiej Leonow wykonał pierwszy w historii spacer w kosmosie. Unosił się swobodnie w próżni!"}, {y:"1858", t:"Urodził się Rudolf Diesel. Wynalazca silnik, który dziś napędza ciężarówki i wielkie statki."}, {y:"1894", t:"W Paryżu odbył się pierwszy wyścig samochodowy. Auta pędziły z prędkością 20 km/h!"}],
+            "03-19": [{y:"1895", t:"Bracia Lumière z Francji pokazali swój pierwszy film. To oficjalne narodziny KINA na świecie."}, {y:"1930", t:"Astronomowie ogłosili odkrycie Plutona. Ludzie myśleli wtedy, że Układ Słoneczny ma 9 planet."}, {y:"1845", t:"Opatentowano GUMKĘ RECEPTURKĘ. Ta prosta rzecz z gumy do dziś ułatwia nam życie codzienne."}],
+            "03-20": [{y:"1642", t:"Urodził się Izaak Newton. Odkrył prawo grawitacji – wyjaśnił, dlaczego jabłka spadają na ziemię."}, {y:"WIO.", t:"Dziś pierwszy dzień astronomicznej wiosny! Przyroda budzi się, a dni stają się coraz dłuższe."}, {y:"1916", t:"W czasie wojny powstał klub Legia Warszawa – jeden z najbardziej znanych klubów w Polsce."}],
+            "03-21": [{y:"1885", t:"Pierwszy lot sterowcem z silnikiem. Wielkie cygara z gazem zaczęły latać tam, gdzie chcieli piloci."}, {y:"1923", t:"Opatentowano echosondę – urządzenie, które dźwiękiem mierzy głębokość morza pod statkiem."}, {y:"2006", t:"Powstanie Twittera. Ludzie zaczęli wysyłać krótkie wiadomości o tym, co robią w danej chwili."}],
+            "03-24": [{y:"1993", t:"Odkryto kometę Shoemaker-Levy 9. Rok później uderzyła w Jowisza, co naukowcy mogli obserwować."}, {y:"1882", t:"Robert Koch odkrył bakterię gruźlicy. To pozwoliło lekarzom zacząć skutecznie leczyć ludzi."}, {y:"1909", t:"Harry Houdini wykonał swój legendarny pokaz ucieczki z zamkniętej skrzyni pod wodą!"}],
+            "03-25": [{y:"1655", t:"Christian Huygens odkrył Tytana – księżyc Saturna. Są tam jeziora z płynnego gazu!"}, {y:"1957", t:"Podpisano Traktaty Rzymskie. To początek Unii Europejskiej – krajów współpracujących ze sobą."}, {y:"1954", t:"Pierwsza transmisja kolorowej telewizji. Obraz przestał być czarno-biały i ożył barwami!"}],
+            "03-26": [{y:"1998", t:"Premiera gry StarCraft. Stała się tak popularna, że w Korei pokazywano mecze w telewizji."}, {y:"1946", t:"Urodził się Jan Miodek, słynny polski profesor, który uczy nas poprawnie mówić po polsku."}, {y:"1885", t:"Kodak wypuścił pierwszy aparat z kliszą w rolce. Robienie zdjęć stało się o wiele prostsze."}],
+            "03-27": [{y:"1901", t:"Wilhelm Röntgen otrzymał Nagrodę Nobla za odkrycie promieni X (dzisiejszych prześwietleń)."}, {y:"1966", t:"Lot samolotu, który potrafił startować pionowo jak helikopter, a potem lecieć szybko jak odrzutowiec."}, {y:"1993", t:"Premiera 'Parku Jurajskiego' w Polsce. Dinozaury z komputera zachwyciły polskie dzieci."}],
+            "03-28": [{y:"1910", t:"Lot hydroplanu – samolotu, który zamiast kół ma płozy i startuje prosto z wody."}, {y:"1802", t:"Odkrycie asteroidy Pallas. Była drugim odkrytym obiektem w pasie między Marsem a Jowiszem."}, {y:"1911", t:"Urodził się Józef Hurwic, polski chemik. Przez lata uczył dzieci, jak ciekawa jest nauka."}],
+            "03-31": [{y:"1889", t:"Otwarcie WIEŻY EIFFLA w Paryżu. Choć wielu uważało ją za brzydką, dziś to symbol całej Europy!"}, {y:"1596", t:"Urodził się Kartezjusz, wielki myśliciel. Wymyślił układ współrzędnych, którego używasz w szkole."}, {y:"1541", t:"W Szkocji odbył się pierwszy mecz w Curling. To sport puszczania kamieni po lodzie."}],
+            "04-12": [{y:"1961", t:"Gagarin w kosmosie."}, {y:"1981", t:"Prom Columbia."}, {y:"ŚW.", t:"Dzień Czekolady."}],
+            "04-30": [{y:"1777", t:"Gauss - matematyka."}, {y:"1993", t:"Internet darmowy."}, {y:"1925", t:"Kopalnia soli."}]
         };
 
-        // Funkcja do wypełniania brakujących dni prostymi ciekawostkami techniczno-naukowymi
-        function fillDatabase() {
-            const start = new Date(2025, 0, 7);
-            const end = new Date(2025, 4, 1);
-            for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-                const key = `${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`;
-                if (!FIXED_DATABASE[key]) {
-                    FIXED_DATABASE[key] = [
-                        {y:"NAUKA", t:"Czy wiesz, że światło ze Słońca leci do nas około 8 minut? Patrząc w niebo, widzisz przeszłość!"},
-                        {y:"TECHNIKA", t:"Internet, z którego korzystasz, to sieć kabli na dnie oceanów, które łączą wszystkie kontynenty."},
-                        {y:"HISTORIA", t:"Dawniej ludzie nie mieli smartfonów. Aby wysłać wiadomość, musieli pisać listy i czekać tygodniami na odpowiedź!"}
-                    ];
-                }
-            }
-        }
-        fillDatabase();
+        // --- KONFIGURACJA SZCZĘŚLIWEGO NUMERU ---
+        const PRE_DEFINED_BAGS = [
+            [3, 5, 17, 1, 9, 14, 6, 8, 12, 4, 10, 15, 2, 13, 7, 11, 18, 16],
+            [10, 4, 15, 2, 13, 7, 1, 18, 9, 16, 5, 11, 17, 3, 8, 14, 6, 12],
+            [7, 14, 2, 16, 9, 12, 5, 1, 11, 17, 3, 10, 6, 15, 18, 4, 13, 8],
+            [16, 6, 13, 8, 3, 18, 10, 2, 15, 5, 1, 14, 9, 11, 4, 17, 7, 12],
+            [5, 12, 17, 4, 11, 8, 15, 7, 2, 13, 9, 1, 18, 6, 10, 16, 3, 14],
+            [9, 1, 14, 6, 10, 16, 3, 13, 4, 17, 7, 12, 15, 2, 11, 18, 8, 5],
+            [2, 15, 8, 11, 4, 7, 13, 18, 6, 10, 16, 3, 14, 9, 1, 12, 5, 17],
+            [14, 3, 10, 12, 5, 17, 7, 4, 13, 9, 1, 18, 2, 8, 15, 6, 11, 16],
+            [11, 16, 6, 1, 8, 15, 9, 3, 12, 14, 17, 5, 13, 7, 2, 10, 18, 4],
+            [4, 18, 7, 13, 2, 10, 1, 16, 8, 15, 6, 11, 12, 5, 17, 9, 14, 3]
+        ];
+        
+        const comicThemes = [
+            { titleColor: "#a8dadc", numberColor: "#f1faee", bgGradientStart: "#000020", bgGradientEnd: "#4a0d66", borderColor: "black", starColor: "white" },
+            { titleColor: "#ff007f", numberColor: "#ffff00", bgGradientStart: "#00bfff", bgGradientEnd: "#ff4500", borderColor: "black", starColor: "white" },
+            { titleColor: "#dc143c", numberColor: "#ffffff", bgGradientStart: "#4169e1", bgGradientEnd: "#8a2be2", borderColor: "black", starColor: "#ffff00" }
+        ];
+
+        const START_DATE_LUCKY = new Date('2025-10-25T00:00:00Z');
+        const MS_PER_DAY = 1000 * 60 * 60 * 24;
+        const CYCLE_LENGTH_DAYS = PRE_DEFINED_BAGS.length * 18; 
 
         const VIEW_DURATION = 10000;
         let currentView = 'A';
         let todaysEvents = [];
         let currentEventIndex = 0;
+
+        // Inicjalizacja localStorage
+        if (localStorage.getItem('antygravity_db')) {
+            const savedDb = JSON.parse(localStorage.getItem('antygravity_db'));
+            FIXED_DATABASE = { ...FIXED_DATABASE, ...savedDb };
+        }
 
         function updateDateTime() {
             const now = new Date();
@@ -203,29 +286,62 @@
             }
         }
 
-        function updateLuckyNumber() {
-            const now = new Date();
-            const luckyNum = (now.getDate() % 18) + 1;
-            document.getElementById('lucky-number-text').textContent = luckyNum;
-            const diceCol = document.getElementById('lucky-dice-column');
-            diceCol.innerHTML = '';
-            let diceVal = luckyNum > 6 ? 6 : luckyNum;
-            let secondDice = luckyNum > 6 ? luckyNum - 6 : 0;
-            
-            [diceVal, secondDice].forEach(v => {
-                if(v > 0) {
-                    const d = document.createElement('div');
-                    d.className = `dice value-${v}`;
-                    for(let i=0; i<v; i++) d.appendChild(document.createElement('div')).className='dot';
-                    diceCol.appendChild(d);
+        function updateLuckyNumberAndTheme() {
+            try {
+                const now = new Date();
+                const todayUTC = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+                const startUTC = Date.UTC(START_DATE_LUCKY.getFullYear(), START_DATE_LUCKY.getMonth(), START_DATE_LUCKY.getDate());
+                let dayDiff = Math.floor((todayUTC - startUTC) / MS_PER_DAY);
+                if (dayDiff < 0) dayDiff = (dayDiff % CYCLE_LENGTH_DAYS + CYCLE_LENGTH_DAYS) % CYCLE_LENGTH_DAYS;
+                const indexInCycle = dayDiff % CYCLE_LENGTH_DAYS;
+                const bagIndex = Math.floor(indexInCycle / 18) % PRE_DEFINED_BAGS.length;
+                const numberIndex = indexInCycle % 18;
+                const luckyNum = PRE_DEFINED_BAGS[bagIndex][numberIndex];
+                const currentTheme = comicThemes[now.getDate() % comicThemes.length];
+                const root = document.documentElement;
+                root.style.setProperty('--theme-title-color', currentTheme.titleColor);
+                root.style.setProperty('--theme-number-color', currentTheme.numberColor);
+                root.style.setProperty('--theme-bg-gradient-start', currentTheme.bgGradientStart);
+                root.style.setProperty('--theme-bg-gradient-end', currentTheme.bgGradientEnd);
+                root.style.setProperty('--theme-border-color', currentTheme.borderColor);
+                root.style.setProperty('--theme-star-color', currentTheme.starColor);
+                const numText = document.getElementById('lucky-number-text');
+                if(numText) numText.textContent = luckyNum;
+                const diceCol = document.getElementById('lucky-dice-column');
+                if(diceCol) {
+                    diceCol.innerHTML = '';
+                    let remain = luckyNum;
+                    while(remain > 0) {
+                        let v = remain > 6 ? 6 : remain;
+                        const d = document.createElement('div');
+                        d.className = `dice value-${v}`;
+                        for(let i=0; i<v; i++) d.appendChild(document.createElement('div')).className='dot';
+                        diceCol.appendChild(d);
+                        remain -= v;
+                    }
                 }
-            });
+            } catch(e) { console.error(e); }
         }
 
         function initHistoryData() {
             const now = new Date();
-            const key = `${(now.getMonth()+1).toString().padStart(2,'0')}-${now.getDate().toString().padStart(2,'0')}`;
-            todaysEvents = FIXED_DATABASE[key] || [];
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            const key = `${month}-${day}`;
+            const dayOfWeek = now.getDay();
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                todaysEvents = [
+                    {y:"WEEKEND", t:"Dziś sobota lub niedziela! Czas na odpoczynek od nauki i dobrą zabawę na świeżym powietrzu. 🎈"},
+                    {y:"WEEKEND", t:"Czy wiesz, że odpoczynek jest tak samo ważny jak nauka? Twój mózg wtedy utrwala nową wiedzę."},
+                    {y:"WEEKEND", t:"Do zobaczenia w poniedziałek z nową dawką niesamowitych ciekawostek historycznych! 📅"}
+                ];
+            } else {
+                todaysEvents = FIXED_DATABASE[key] || [
+                    {y:"NAUKA", t:"Każdy dzień to szansa na odkrycie. Czy wiesz, że światło ze Słońca leci do nas około 8 minut?"},
+                    {y:"HISTORIA", t:"Dawniej ludzie nie mieli smartfonów. Aby wysłać wiadomość, pisali listy i czekali na nie tygodniami."},
+                    {y:"TECHNIKA", t:"Internet to ogromna sieć kabli na dnie oceanów, które łączą wszystkie kontynenty świata."}
+                ];
+            }
             currentEventIndex = 0;
         }
 
@@ -236,6 +352,7 @@
                 const event = todaysEvents[currentEventIndex];
                 const isYear = /^\d+$/.test(event.y);
                 header.innerHTML = `CZY WIESZ, ŻE W <span class="highlight-date">${event.y}${isYear ? ' ROKU' : ''}</span>`;
+                if(["WIO.", "ŚW.", "WEEKEND", "NAUKA", "HISTORIA", "TECHNIKA"].includes(event.y)) header.innerHTML = `CZY WIESZ, ŻE <span class="highlight-date">DZIŚ</span>`;
                 content.innerHTML = `<div class="single-fact-text" style="animation: fadeIn 0.5s;">${event.t}</div>`;
                 currentEventIndex = (currentEventIndex + 1) % todaysEvents.length;
             }
@@ -250,13 +367,88 @@
                 vb.classList.replace('inactive', 'active');
                 currentView = 'B';
             } else {
+                updateLuckyNumberAndTheme();
                 va.classList.replace('inactive', 'active');
                 vb.classList.replace('active', 'inactive');
                 currentView = 'A';
             }
         }
 
-        updateDateTime(); updateLuckyNumber(); initHistoryData();
+        // --- OBSŁUGA EDYTORA ---
+        const gearBtn = document.getElementById('gear-btn');
+        const overlay = document.getElementById('editor-overlay');
+        const closeBtn = document.querySelector('.close-editor');
+        const selectMonth = document.getElementById('select-month');
+        const selectDay = document.getElementById('select-day');
+        const eventsList = document.getElementById('events-editor-list');
+        const saveBtn = document.querySelector('.save-btn');
+
+        function updateDaysDropdown() {
+            const month = parseInt(selectMonth.value);
+            const year = new Date().getFullYear();
+            const daysInMonth = new Date(year, month, 0).getDate();
+            selectDay.innerHTML = '';
+            for(let i=1; i<=daysInMonth; i++) {
+                const opt = document.createElement('option');
+                const val = i.toString().padStart(2, '0');
+                opt.value = val;
+                opt.textContent = i;
+                selectDay.appendChild(opt);
+            }
+            loadDayToEditor();
+        }
+
+        function loadDayToEditor() {
+            const month = selectMonth.value;
+            const day = selectDay.value;
+            const key = `${month}-${day}`;
+            const data = FIXED_DATABASE[key] || [{y:"",t:""},{y:"",t:""},{y:"",t:""}];
+            
+            eventsList.innerHTML = '';
+            data.forEach((ev, i) => {
+                const div = document.createElement('div');
+                div.className = 'event-edit-group';
+                div.innerHTML = `
+                    <label>Wydarzenie ${i+1}</label>
+                    <input type="text" class="edit-y" value="${ev.y}" placeholder="Rok lub Nazwa (np. 1920)">
+                    <textarea class="edit-t" placeholder="Treść ciekawostki...">${ev.t}</textarea>
+                `;
+                eventsList.appendChild(div);
+            });
+        }
+
+        gearBtn.onclick = () => { overlay.style.display = 'flex'; updateDaysDropdown(); };
+        closeBtn.onclick = () => overlay.style.display = 'none';
+        selectMonth.onchange = updateDaysDropdown;
+        selectDay.onchange = loadDayToEditor;
+        
+        saveBtn.onclick = () => {
+            const month = selectMonth.value;
+            const day = selectDay.value;
+            const key = `${month}-${day}`;
+            const yInputs = document.querySelectorAll('.edit-y');
+            const tInputs = document.querySelectorAll('.edit-t');
+            
+            const newData = [];
+            for(let i=0; i<3; i++) {
+                newData.push({ y: yInputs[i].value, t: tInputs[i].value });
+            }
+            
+            FIXED_DATABASE[key] = newData;
+            
+            // Zapisz do localStorage
+            const currentSaved = JSON.parse(localStorage.getItem('antygravity_db') || '{}');
+            currentSaved[key] = newData;
+            localStorage.setItem('antygravity_db', JSON.stringify(currentSaved));
+            
+            initHistoryData(); // Odśwież widok bieżący jeśli edytowano dzisiejszą datę
+            overlay.style.display = 'none';
+        };
+
+        // START
+        updateDateTime(); 
+        updateLuckyNumberAndTheme(); 
+        initHistoryData();
         setInterval(updateDateTime, 1000);
         setInterval(switchView, VIEW_DURATION);
     </script>
